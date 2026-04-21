@@ -6,199 +6,70 @@
     <title>ANITA STORE - Catálogo</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-            background: #fdf2f8;
-            color: #831843;
-            line-height: 1.6;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #fdf2f8; color: #831843; line-height: 1.6; }
+       .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+        header { text-align: center; margin-bottom: 30px; position: relative; }
+        h1 { font-size: 48px; color: #db2777; font-weight: 300; letter-spacing: -1px; margin-bottom: 10px; }
+       .tagline { font-size: 16px; color: #be185d; font-weight: 400; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
+       .admin-bar { background: #fef3c7; border: 2px solid #fbbf24; padding: 15px; border-radius: 12px; margin-bottom: 30px; text-align: center; display: none; }
+       .admin-bar.activo { display: block; }
+       .admin-bar p { color: #92400e; font-weight: 600; margin-bottom: 10px; }
+       .btn { padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 14px; margin: 0 5px; }
+       .btn-verde { background: #22c55e; color: white; }
+       .btn-verde:hover { background: #16a34a; }
+       .btn-azul { background: #3b82f6; color: white; }
+       .btn-azul:hover { background: #2563eb; }
+       .btn-rojo { background: #ef4444; color: white; }
+       .btn-rojo:hover { background: #dc2626; }
 
-        header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
+       .toggle-admin { position: absolute; top: 0; right: 0; background: #6b7280; color: white; border: none; padding: 8px 14px; border-radius: 8px; cursor: pointer; font-size: 13px; }
+       .toggle-admin:hover { background: #4b5563; }
 
-        h1 {
-            font-size: 48px;
-            color: #db2777;
-            font-weight: 300;
-            letter-spacing: -1px;
-            margin-bottom: 10px;
-        }
+       .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; margin-top: 40px; }
+       .card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(236, 72, 153, 0.12); transition: all 0.3s ease; cursor: pointer; position: relative; }
+       .card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(236, 72, 153, 0.2); }
+       .img-wrapper { width: 100%; height: 380px; background: #fce7f3; position: relative; overflow: hidden; }
+       .img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+       .card:hover.img-wrapper img { transform: scale(1.05); }
+       .placeholder { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 80px; color: #f9a8d4; }
+       .info { padding: 20px; }
+       .nombre { font-size: 17px; font-weight: 600; color: #831843; margin-bottom: 8px; }
+       .descripcion { font-size: 14px; color: #be185d; line-height: 1.5; }
+       .btn-borrar { position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 18px; font-weight: bold; display: none; z-index: 10; }
+       .btn-borrar.mostrar { display: block; }
 
-        .tagline {
-            font-size: 16px;
-            color: #be185d;
-            font-weight: 400;
-        }
+       .vacio { text-align: center; padding: 80px 20px; color: #be185d; grid-column: 1 / -1; }
+       .vacio p { font-size: 18px; margin-bottom: 10px; }
+       .vacio span { font-size: 14px; color: #f9a8d4; }
 
-        .galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
+       .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+       .lightbox.activo { display: flex; }
+       .lightbox-contenido { max-width: 900px; max-height: 90vh; position: relative; }
+       .lightbox img { max-width: 100%; max-height: 75vh; border-radius: 12px; display: block; }
+       .lightbox-info { background: white; padding: 25px; border-radius: 12px; margin-top: 20px; }
+       .lightbox-info h2 { color: #db2777; font-size: 24px; margin-bottom: 10px; font-weight: 600; }
+       .lightbox-info p { color: #831843; font-size: 15px; line-height: 1.7; white-space: pre-wrap; }
+       .cerrar { position: absolute; top: -15px; right: -15px; background: #ef4444; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; line-height: 1; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
 
-        .card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 1px 3px rgba(236, 72, 153, 0.12);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
+       .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center; padding: 20px; }
+       .modal.activo { display: flex; }
+       .modal-box { background: white; padding: 30px; border-radius: 16px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
+       .modal-box h3 { color: #db2777; margin-bottom: 20px; font-size: 22px; }
+       .ayuda { background: #dbeafe; border: 1px solid #3b82f6; padding: 12px; border-radius: 8px; font-size: 13px; color: #1e40af; margin-bottom: 15px; line-height: 1.6; }
+       .modal-box input,.modal-box textarea { width: 100%; padding: 12px; border: 2px solid #f9a8d4; border-radius: 8px; margin-bottom: 15px; font-size: 14px; font-family: inherit; }
+       .modal-box input:focus,.modal-box textarea:focus { outline: none; border-color: #ec4899; }
+       .modal-box textarea { resize: vertical; min-height: 90px; }
+       .modal-botones { display: flex; gap: 10px; }
+       .modal-botones button { flex: 1; }
 
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 24px rgba(236, 72, 153, 0.2);
-        }
-
-        .img-wrapper {
-            width: 100%;
-            height: 380px;
-            background: #fce7f3;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.4s ease;
-        }
-
-        .card:hover .img-wrapper img {
-            transform: scale(1.05);
-        }
-
-        .placeholder {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            font-size: 80px;
-            color: #f9a8d4;
-        }
-
-        .info {
-            padding: 20px;
-        }
-
-        .nombre {
-            font-size: 17px;
-            font-weight: 600;
-            color: #831843;
-            margin-bottom: 8px;
-        }
-
-        .descripcion {
-            font-size: 14px;
-            color: #be185d;
-            line-height: 1.5;
-        }
-
-        .vacio {
-            text-align: center;
-            padding: 80px 20px;
-            color: #be185d;
-        }
-
-        .vacio p {
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-
-        .vacio span {
-            font-size: 14px;
-            color: #f9a8d4;
-        }
-
-        /* Lightbox para ver grande */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
-        .lightbox.activo {
-            display: flex;
-        }
-
-        .lightbox-contenido {
-            max-width: 900px;
-            max-height: 90vh;
-            position: relative;
-        }
-
-        .lightbox img {
-            max-width: 100%;
-            max-height: 75vh;
-            border-radius: 12px;
-            display: block;
-        }
-
-        .lightbox-info {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-top: 20px;
-        }
-
-        .lightbox-info h2 {
-            color: #db2777;
-            font-size: 24px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .lightbox-info p {
-            color: #831843;
-            font-size: 15px;
-            line-height: 1.7;
-            white-space: pre-wrap;
-        }
-
-        .cerrar {
-            position: absolute;
-            top: -15px;
-            right: -15px;
-            background: #ef4444;
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 24px;
-            cursor: pointer;
-            line-height: 1;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-
-        .cerrar:hover {
-            background: #dc2626;
-        }
+       .export-box { background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 11px; margin: 15px 0; white-space: pre-wrap; word-break: break-all; max-height: 250px; overflow-y: auto; }
 
         @media (max-width: 768px) {
             h1 { font-size: 36px; }
-            .galeria { grid-template-columns: 1fr; gap: 20px; }
-            .img-wrapper { height: 320px; }
+           .galeria { grid-template-columns: 1fr; gap: 20px; }
+           .img-wrapper { height: 320px; }
+           .toggle-admin { position: static; margin-top: 15px; }
         }
     </style>
 </head>
@@ -207,17 +78,18 @@
         <header>
             <h1>ANITA STORE</h1>
             <p class="tagline">Catálogo Spa de Uñas</p>
+            <button class="toggle-admin" onclick="toggleAdmin()">🔒 Admin</button>
         </header>
 
-        <div class="galeria" id="galeria">
-            <div class="vacio">
-                <p>✨ Tu catálogo está listo</p>
-                <span>En el Paso 2 agregamos tus productos</span>
-            </div>
+        <div class="admin-bar" id="admin-bar">
+            <p>🔒 Modo Admin Activo - Solo vos ves esto</p>
+            <button class="btn btn-verde" onclick="abrirModal()">➕ Agregar Producto</button>
+            <button class="btn btn-azul" onclick="exportar()">📤 Exportar Todo</button>
         </div>
+
+        <div class="galeria" id="galeria"></div>
     </div>
 
-    <!-- Lightbox para ver fotos grandes -->
     <div class="lightbox" id="lightbox" onclick="cerrarLightbox(event)">
         <div class="lightbox-contenido" onclick="event.stopPropagation()">
             <button class="cerrar" onclick="cerrarLightbox()">×</button>
@@ -229,37 +101,58 @@
         </div>
     </div>
 
+    <div class="modal" id="modal-add">
+        <div class="modal-box">
+            <h3>➕ Agregar Producto Nuevo</h3>
+            <div class="ayuda">
+                <b>IMGUR [Recomendado]:</b> Subí en imgur.com → Clic derecho en la foto → "Copiar dirección de imagen"<br><br>
+                <b>GOOGLE DRIVE:</b> Subí → Compartir público → Pegá el link completo acá, yo lo convierto solo
+            </div>
+            <input type="text" id="input-url" placeholder="Pegá el link de la imagen de Imgur o Drive">
+            <input type="text" id="input-nombre" placeholder="Nombre del producto">
+            <textarea id="input-desc" placeholder="Descripción o detalles (opcional)"></textarea>
+            <div class="modal-botones">
+                <button class="btn btn-verde" onclick="guardarProducto()">Guardar</button>
+                <button class="btn btn-rojo" onclick="cerrarModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-export">
+        <div class="modal-box">
+            <h3>📤 Exportar Catálogo Completo</h3>
+            <p style="font-size: 14px; color: #64748b; margin-bottom: 15px;">Copiá todo este código y pegalo en un archivo nuevo llamado <code>productos.json</code> en tu GitHub. Esto hace que todos vean tu catálogo.</p>
+            <div class="export-box" id="export-code"></div>
+            <button class="btn btn-azul" style="width: 100%; margin-bottom: 10px;" onclick="copiarExport()">📋 Copiar Código</button>
+            <button class="btn btn-rojo" style="width: 100%;" onclick="cerrarExport()">Cerrar</button>
+        </div>
+    </div>
+
     <script>
-        // Paso 2: Acá van a aparecer tus productos
-        const productos = [
-  {
-    nombre: "Producto de Prueba",
-    descripcion: "Esta es mi primera foto real desde Drive",
-  url: "https://drive.google.com/thumbnail?id=1b6boa5DyW5RKEsb6CoXnNhK25sLB7Tle&sz=w1000"
-  }
-];
+        let productos = JSON.parse(localStorage.getItem('anitaProductos') || '[]');
+        let modoAdmin = false;
 
         function renderizar() {
             const galeria = document.getElementById('galeria');
-            
+
             if (productos.length === 0) {
                 galeria.innerHTML = `
                     <div class="vacio">
-                        <p>✨ Tu catálogo está listo</p>
-                        <span>En el Paso 2 agregamos tus productos</span>
+                        <p>✨ Tu catálogo está listo para cargar</p>
+                        <span>Tocá "🔒 Admin" arriba y después "Agregar Producto"</span>
                     </div>
                 `;
                 return;
             }
 
             galeria.innerHTML = '';
-            productos.forEach(p => {
+            productos.forEach((p, i) => {
                 const card = document.createElement('div');
                 card.className = 'card';
-                card.onclick = () => abrirLightbox(p);
                 card.innerHTML = `
-                    <div class="img-wrapper">
-                        <img src="${p.url}" alt="${p.nombre}" loading="lazy" 
+                    ${modoAdmin? `<button class="btn-borrar mostrar" onclick="borrarProducto(${i}, event)">×</button>` : ''}
+                    <div class="img-wrapper" onclick="abrirLightbox(${i})">
+                        <img src="${p.url}" alt="${p.nombre}" loading="lazy"
                              onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>📷</div>'">
                     </div>
                     <div class="info">
@@ -271,10 +164,94 @@
             });
         }
 
-        function abrirLightbox(producto) {
-            document.getElementById('lightbox-img').src = producto.url;
-            document.getElementById('lightbox-nombre').textContent = producto.nombre;
-            document.getElementById('lightbox-descripcion').textContent = producto.descripcion || 'Sin descripción';
+        function convertirDrive(link) {
+            // Si es link de Drive, lo convierte solo
+            if (link.includes('drive.google.com')) {
+                const match = link.match(/[-\w]{25,}/);
+                if (match) {
+                    return `https://drive.google.com/thumbnail?id=${match[0]}&sz=w1000`;
+                }
+            }
+            return link;
+        }
+
+        function toggleAdmin() {
+            modoAdmin =!modoAdmin;
+            document.getElementById('admin-bar').classList.toggle('activo');
+            renderizar();
+        }
+
+        function abrirModal() {
+            document.getElementById('modal-add').classList.add('activo');
+            document.getElementById('input-url').focus();
+        }
+
+        function cerrarModal() {
+            document.getElementById('modal-add').classList.remove('activo');
+            document.getElementById('input-url').value = '';
+            document.getElementById('input-nombre').value = '';
+            document.getElementById('input-desc').value = '';
+        }
+
+        function guardarProducto() {
+            const urlRaw = document.getElementById('input-url').value.trim();
+            const nombre = document.getElementById('input-nombre').value.trim();
+            const desc = document.getElementById('input-desc').value.trim();
+
+            if (!urlRaw ||!nombre) {
+                alert('Poné al menos el link y el nombre');
+                return;
+            }
+
+            const url = convertirDrive(urlRaw);
+
+            productos.push({
+                id: Date.now(),
+                nombre: nombre,
+                descripcion: desc,
+                url: url
+            });
+
+            localStorage.setItem('anitaProductos', JSON.stringify(productos));
+            renderizar();
+            cerrarModal();
+        }
+
+        function borrarProducto(index, e) {
+            e.stopPropagation();
+            if (confirm('¿Borrar este producto?')) {
+                productos.splice(index, 1);
+                localStorage.setItem('anitaProductos', JSON.stringify(productos));
+                renderizar();
+            }
+        }
+
+        function exportar() {
+            if (productos.length === 0) {
+                alert('Primero agregá algunos productos');
+                return;
+            }
+            const json = JSON.stringify(productos, null, 2);
+            document.getElementById('export-code').textContent = json;
+            document.getElementById('modal-export').classList.add('activo');
+        }
+
+        function copiarExport() {
+            const texto = document.getElementById('export-code').textContent;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('✅ Código copiado! Creá un archivo productos.json en GitHub y pegalo ahí.');
+            });
+        }
+
+        function cerrarExport() {
+            document.getElementById('modal-export').classList.remove('activo');
+        }
+
+        function abrirLightbox(i) {
+            const p = productos[i];
+            document.getElementById('lightbox-img').src = p.url;
+            document.getElementById('lightbox-nombre').textContent = p.nombre;
+            document.getElementById('lightbox-descripcion').textContent = p.descripcion || 'Sin descripción';
             document.getElementById('lightbox').classList.add('activo');
             document.body.style.overflow = 'hidden';
         }
@@ -287,7 +264,11 @@
         }
 
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') cerrarLightbox();
+            if (e.key === 'Escape') {
+                cerrarLightbox();
+                cerrarModal();
+                cerrarExport();
+            }
         });
 
         renderizar();
