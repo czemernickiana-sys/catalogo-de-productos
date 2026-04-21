@@ -233,33 +233,40 @@ const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1D4z2yxDAZ6
         }
 
         // Carga los productos desde tu Excel
-        async function cargarProductos() {
-            try {
-                const response = await fetch(SHEET_URL);
-                const text = await response.text();
-                const json = JSON.parse(text.substr(47).slice(0, -2));
-                const rows = json.table.rows;
+      async function cargarProductos() {
+    try {
+        const response = await fetch(SHEET_URL);
+        const csv = await response.text();
+        const filas = csv.split('\n');
+        
+        // Salteo la fila 1 que tiene los títulos
+        todosProductos = filas.slice(1).map((fila, i) => {
+            // Esto separa por comas pero respeta comas dentro de comillas
+            const c = fila.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+            const limpiar = (txt) => txt ? txt.replace(/^"|"$/g, '').trim() : '';
+            
+            return {
+                id: i,
+                img: convertirDrive(limpiar(c[1])), // Columna B
+                nombre: limpiar(c[2]), // Columna C
+                descripcion: limpiar(c[7]), // Columna H
+                categoria: limpiar(c[10]) || 'Sin categoría' // Columna K
+            };
+        }).filter(p => p.nombre && p.img);
 
-                todosProductos = rows.slice(1).map((row, i) => {
-                    const c = row.c;
-                    return {
-                        id: i,
-                        nombre: c[2]?.v || '', // Columna C = Nombre
-                        img: convertirDrive(c[1]?.v || ''), // Columna B = Foto
-                        descripcion: c[7]?.v || '', // Columna H = Descripción
-                        categoria: (c[10]?.v || 'Sin categoría').trim() // Columna K = Categoría
-                    };
-                }).filter(p => p.nombre && p.img); // Solo productos con nombre y foto
-
-                generarTabs();
-                renderizar();
-            } catch (error) {
-                document.getElementById('galeria').innerHTML = `
-                    <div class="cargando">Error al cargar. Refrescá la página.</div>
-                `;
-                console.error(error);
-            }
+        if(todosProductos.length === 0) {
+            throw new Error('No se encontraron productos');
         }
+
+        generarTabs();
+        renderizar();
+    } catch (error) {
+        document.getElementById('galeria').innerHTML = `
+            <div class="cargando">Error al cargar: ${error.message}</div>
+        `;
+        console.error(error);
+    }
+}
 
         // Crea las pestañas según las categorías de tu Excel
         function generarTabs() {
