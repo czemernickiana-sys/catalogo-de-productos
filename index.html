@@ -3,302 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANITA STORE - Catálogo Spa de Uñas</title>
+    <title>ANITA STORE - Catálogo</title>
     <style>
-        * { box-sizing: border-box; font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        body { background: #fff1f2; min-height: 100vh; display: flex; }
-    .sidebar { width: 260px; background: white; border-right: 2px solid #fbcfe8; padding: 25px 15px; transition: margin-left 0.3s ease; box-shadow: 2px 0 8px rgba(236, 72, 153, 0.1); position: sticky; top: 0; height: 100vh; overflow-y: auto; }
-    .sidebar.cerrado { margin-left: -260px; }
-    .sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
-    .sidebar h2 { color: #db2777; font-size: 22px; font-weight: bold; }
-    .btn-toggle { background: #ec4899; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; }
-    .btn-toggle:hover { background: #db2777; }
-    .btn-toggle-flotante { position: fixed; top: 20px; left: 20px; background: #ec4899; color: white; border: none; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-size: 20px; font-weight: bold; z-index: 999; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: none; }
-    .btn-toggle-flotante.visible { display: block; }
-    .btn-filtro { width: 100%; background: #fce7f3; color: #831843; border: 2px solid #f9a8d4; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.2s; margin-bottom: 10px; text-align: left; }
-    .btn-filtro:hover { background: #f9a8d4; color: white; transform: translateX(4px); }
-    .btn-filtro.activo { background: #ec4899; color: white; border-color: #ec4899; }
-    .btn-admin { width: 100%; background: #22c55e; color: white; border: none; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; margin-top: 15px; }
-    .btn-admin:hover { background: #16a34a; }
-    .btn-exportar { width: 100%; background: #3b82f6; color: white; border: none; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; margin-top: 10px; }
-    .btn-exportar:hover { background: #2563eb; }
-    .main { flex: 1; padding: 25px; overflow-x: hidden; }
-    .header { margin-bottom: 25px; }
-        h1 { color: #db2777; text-align: center; font-size: 42px; margin-bottom: 8px; font-weight: bold; }
-    .subtitulo { text-align: center; color: #831843; font-size: 16px; margin-bottom: 20px; }
-    .contador { text-align: center; color: #831843; font-size: 14px; margin-bottom: 20px; background: white; padding: 10px; border-radius: 8px; border: 1px solid #fbcfe8; }
-    .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-    .card-foto { background: white; border-radius: 12px; padding: 12px; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.15); border: 1px solid #fbcfe8; transition: transform 0.2s; position: relative; }
-    .card-foto:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25); }
-    .img-container { width: 100%; height: 300px; border-radius: 8px; overflow: hidden; background: #fce7f3; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; position: relative; cursor: pointer; }
-    .img-container img { width: 100%; height: 100%; object-fit: cover; }
-    .img-placeholder { font-size: 60px; color: #f9a8d4; }
-    .info-foto { padding: 0 4px; }
-    .nombre-foto { font-weight: bold; color: #831843; font-size: 14px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .categoria-foto { font-size: 11px; color: #be185d; background: #fdf2f8; display: inline-block; padding: 3px 8px; border-radius: 4px; margin-bottom: 6px; }
-    .descripcion-foto { font-size: 12px; color: #831843; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .btn-borrar { position: absolute; top: 8px; right: 8px; background: #ef4444; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-size: 16px; font-weight: bold; line-height: 1; display: none; }
-    .btn-borrar.visible { display: block; }
-    .btn-borrar:hover { background: #dc2626; }
-    .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; }
-    .lightbox.activo { display: flex; }
-    .lightbox-contenido { position: relative; max-width: 90%; max-height: 90%; display: flex; flex-direction: column; align-items: center; }
-    .lightbox-img { max-width: 100%; max-height: 70vh; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-    .lightbox-info { background: white; padding: 20px 25px; border-radius: 8px; margin-top: 15px; text-align: left; max-width: 600px; width: 100%; }
-    .lightbox-info h3 { color: #db2777; font-size: 20px; margin-bottom: 5px; }
-    .lightbox-cat { color: #be185d; font-size: 13px; background: #fdf2f8; display: inline-block; padding: 3px 8px; border-radius: 4px; margin-bottom: 12px; }
-    .lightbox-desc { color: #831843; font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
-    .lightbox-cerrar { position: absolute; top: 20px; right: 30px; background: #ef4444; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 24px; font-weight: bold; line-height: 1; }
-    .lightbox-cerrar:hover { background: #dc2626; }
-    .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(236, 72, 153, 0.8); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 28px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
-    .lightbox-nav:hover { background: #ec4899; }
-    .lightbox-prev { left: 30px; }
-    .lightbox-next { right: 30px; }
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
-    .modal.activo { display: flex; }
-    .modal-contenido { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 500px; border: 2px solid #f9a8d4; max-height: 90vh; overflow-y: auto; }
-    .modal-contenido h3 { color: #db2777; margin-bottom: 15px; font-size: 20px; }
-    .ayuda-link { background: #fef3c7; border: 1px solid #fbbf24; padding: 10px; border-radius: 6px; font-size: 12px; color: #92400e; margin-bottom: 12px; line-height: 1.5; }
-    .modal-contenido input,.modal-contenido select,.modal-contenido textarea { width: 100%; padding: 10px; border: 1px solid #f9a8d4; border-radius: 6px; margin-bottom: 12px; font-size: 14px; font-family: Arial, sans-serif; }
-    .modal-contenido textarea { resize: vertical; min-height: 80px; }
-    .modal-contenido input:focus,.modal-contenido select:focus,.modal-contenido textarea:focus { outline: none; border-color: #ec4899; }
-    .modal-botones { display: flex; gap: 10px; margin-top: 10px; }
-    .btn-guardar { background: #22c55e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1; }
-    .btn-cancelar { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1; }
-    .resultado-export { background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 11px; margin-top: 15px; white-space: pre-wrap; word-break: break-all; max-height: 200px; overflow-y: auto; display: none; }
-    .btn-copiar { background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; width: 100%; }
-    .btn-copiar:hover { background: #2563eb; }
-    .modo-admin-activo { background: #fef3c7; border: 2px solid #fbbf24; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; color: #92400e; font-weight: bold; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: #fdf2f8;
+            color: #831843;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #db2777;
+            font-weight: 300;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 16px;
+            color: #be185d;
+            font-weight: 400;
+        }
+
+        .galeria {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(236, 72, 153, 0.12);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(236, 72, 153, 0.2);
+        }
+
+        .img-wrapper {
+            width: 100%;
+            height: 380px;
+            background: #fce7f3;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover .img-wrapper img {
+            transform: scale(1.05);
+        }
+
+        .placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            font-size: 80px;
+            color: #f9a8d4;
+        }
+
+        .info {
+            padding: 20px;
+        }
+
+        .nombre {
+            font-size: 17px;
+            font-weight: 600;
+            color: #831843;
+            margin-bottom: 8px;
+        }
+
+        .descripcion {
+            font-size: 14px;
+            color: #be185d;
+            line-height: 1.5;
+        }
+
+        .vacio {
+            text-align: center;
+            padding: 80px 20px;
+            color: #be185d;
+        }
+
+        .vacio p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .vacio span {
+            font-size: 14px;
+            color: #f9a8d4;
+        }
+
+        /* Lightbox para ver grande */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .lightbox.activo {
+            display: flex;
+        }
+
+        .lightbox-contenido {
+            max-width: 900px;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 75vh;
+            border-radius: 12px;
+            display: block;
+        }
+
+        .lightbox-info {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        .lightbox-info h2 {
+            color: #db2777;
+            font-size: 24px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .lightbox-info p {
+            color: #831843;
+            font-size: 15px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .cerrar {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            line-height: 1;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .cerrar:hover {
+            background: #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 36px; }
+            .galeria { grid-template-columns: 1fr; gap: 20px; }
+            .img-wrapper { height: 320px; }
+        }
     </style>
 </head>
 <body>
-    <div class="sidebar cerrado" id="sidebar">
-        <div class="sidebar-header">
-            <h2>Categorías</h2>
-            <button class="btn-toggle" onclick="toggleSidebar()">✕</button>
-        </div>
-        <button class="btn-filtro activo" onclick="filtrarCategoria('todas')">📁 Todas</button>
-        <button class="btn-filtro" onclick="filtrarCategoria('herramientas')">🔧 Herramientas</button>
-        <button class="btn-filtro" onclick="filtrarCategoria('pinceles')">🖌️ Pinceles</button>
-        <button class="btn-filtro" onclick="filtrarCategoria('maquinas')">⚙️ Máquinas de Pulir</button>
-        <button class="btn-filtro" onclick="filtrarCategoria('lamparas')">💡 Lámparas</button>
-        <button class="btn-filtro" onclick="filtrarCategoria('accesorios')">✨ Accesorios</button>
-        <button class="btn-admin" onclick="abrirModalAdmin()">🔒 Agregar Producto</button>
-        <button class="btn-exportar" onclick="exportarCatalogo()">📤 Exportar Catálogo</button>
-    </div>
-    <button class="btn-toggle-flotante visible" id="btn-flotante" onclick="toggleSidebar()">☰</button>
-    <div class="main">
-        <div class="header">
+    <div class="container">
+        <header>
             <h1>ANITA STORE</h1>
-            <p class="subtitulo">Catálogo Spa de Uñas - Herramientas & Accesorios</p>
-        </div>
-        <div class="modo-admin-activo" id="modo-admin-banner" style="display:none;">
-            🔒 Modo Admin Activo - Tus productos se guardan solo en este navegador
-        </div>
-        <div class="contador" id="contador"></div>
-        <div class="galeria" id="galeria"></div>
-    </div>
+            <p class="tagline">Catálogo Spa de Uñas</p>
+        </header>
 
-    <!-- MODAL AGREGAR -->
-    <div class="modal" id="modal-admin">
-        <div class="modal-contenido">
-            <h3>🔒 Agregar Producto</h3>
-            <div class="ayuda-link">
-                <b>Google Drive:</b> Subí → Compartir → “Cualquiera con el enlace” → Copiá el link y cambiá <code>/view</code> por <code>/preview</code><br>
-                <b>Imgur:</b> Clic derecho en la imagen → “Copiar dirección de imagen”
-            </div>
-            <input type="text" id="admin-url" placeholder="Pegá el link de la imagen acá">
-            <input type="text" id="admin-nombre" placeholder="Nombre del producto">
-            <select id="admin-categoria">
-                <option value="herramientas">Herramientas</option>
-                <option value="pinceles">Pinceles</option>
-                <option value="maquinas">Máquinas de Pulir</option>
-                <option value="lamparas">Lámparas</option>
-                <option value="accesorios">Accesorios</option>
-            </select>
-            <textarea id="admin-descripcion" placeholder="Descripción del producto..."></textarea>
-            <div class="modal-botones">
-                <button class="btn-guardar" onclick="guardarProducto()">Guardar</button>
-                <button class="btn-cancelar" onclick="cerrarModalAdmin()">Cancelar</button>
+        <div class="galeria" id="galeria">
+            <div class="vacio">
+                <p>✨ Tu catálogo está listo</p>
+                <span>En el Paso 2 agregamos tus productos</span>
             </div>
         </div>
     </div>
 
-    <!-- MODAL EXPORTAR -->
-    <div class="modal" id="modal-exportar">
-        <div class="modal-contenido">
-            <h3>📤 Exportar Catálogo</h3>
-            <p style="font-size:13px; color:#64748b; margin-bottom:15px;">Copiá este código y pegalo completo en tu archivo <code>productos.json</code> en GitHub para que todos vean tu catálogo.</p>
-            <div class="resultado-export" id="resultado-export"></div>
-            <button class="btn-copiar" onclick="copiarExport()">📋 Copiar Todo el Código</button>
-            <button class="btn-cancelar" style="margin-top:10px;" onclick="cerrarModalExportar()">Cerrar</button>
-        </div>
-    </div>
-
+    <!-- Lightbox para ver fotos grandes -->
     <div class="lightbox" id="lightbox" onclick="cerrarLightbox(event)">
-        <button class="lightbox-cerrar" onclick="cerrarLightbox()">✕</button>
-        <button class="lightbox-nav lightbox-prev" onclick="fotoAnterior(event)">‹</button>
         <div class="lightbox-contenido" onclick="event.stopPropagation()">
-            <img class="lightbox-img" id="lightbox-img" src="" alt="">
+            <button class="cerrar" onclick="cerrarLightbox()">×</button>
+            <img id="lightbox-img" src="" alt="">
             <div class="lightbox-info">
-                <h3 id="lightbox-nombre"></h3>
-                <span class="lightbox-cat" id="lightbox-categoria"></span>
-                <p class="lightbox-desc" id="lightbox-descripcion"></p>
+                <h2 id="lightbox-nombre"></h2>
+                <p id="lightbox-descripcion"></p>
             </div>
-        <button class="lightbox-nav lightbox-next" onclick="fotoSiguiente(event)">›</button>
+        </div>
     </div>
 
     <script>
-        let productos = [];
-        let categoriaActual = 'todas';
-        let indiceLightbox = 0;
-        let productosFiltrados = [];
+        // Paso 2: Acá van a aparecer tus productos
+        const productos = [];
 
-        window.onload = async function() {
-            // Primero intenta cargar desde productos.json público
-            try {
-                const response = await fetch('./productos.json');
-                const publicos = await response.json();
-                productos = publicos;
-            } catch (error) {
-                productos = [];
-            }
-
-            // Después suma los del localStorage (solo los ve el admin)
-            const locales = JSON.parse(localStorage.getItem('anitaProductosAdmin') || '[]');
-            productos = [...productos,...locales];
-
-            if (locales.length > 0) {
-                document.getElementById('modo-admin-banner').style.display = 'block';
-            }
-
-            renderizarGaleria();
-        };
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const btnFlotante = document.getElementById('btn-flotante');
-            sidebar.classList.toggle('cerrado');
-            btnFlotante.classList.toggle('visible');
-        }
-
-        function filtrarCategoria(cat) {
-            categoriaActual = cat;
-            document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('activo'));
-            event.target.classList.add('activo');
-            renderizarGaleria();
-        }
-
-        function renderizarGaleria() {
+        function renderizar() {
             const galeria = document.getElementById('galeria');
-            galeria.innerHTML = '';
-            productosFiltrados = categoriaActual === 'todas'? productos : productos.filter(p => p.categoria === categoriaActual);
-            document.getElementById('contador').textContent = `Mostrando ${productosFiltrados.length} producto${productosFiltrados.length!== 1? 's' : ''}`;
-
-            const locales = JSON.parse(localStorage.getItem('anitaProductosAdmin') || '[]');
-            const esAdmin = locales.length > 0;
-
-            productosFiltrados.forEach((producto, index) => {
-                const card = document.createElement('div');
-                card.className = 'card-foto';
-                const esLocal = producto.esLocal || false;
-                card.innerHTML = `
-                    ${esLocal && esAdmin? `<button class="btn-borrar visible" onclick="borrarProducto('${producto.id}')">×</button>` : ''}
-                    <div class="img-container" onclick="abrirLightbox(${index})">
-                        <img src="${producto.url}" alt="${producto.nombre}" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=\\'img-placeholder\\'>📷</div>'">
+            
+            if (productos.length === 0) {
+                galeria.innerHTML = `
+                    <div class="vacio">
+                        <p>✨ Tu catálogo está listo</p>
+                        <span>En el Paso 2 agregamos tus productos</span>
                     </div>
-                    <div class="info-foto">
-                        <div class="nombre-foto" title="${producto.nombre}">${producto.nombre}</div>
-                        <span class="categoria-foto">${producto.categoria}</span>
-                        <p class="descripcion-foto">${producto.descripcion || ''}</p>
+                `;
+                return;
+            }
+
+            galeria.innerHTML = '';
+            productos.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.onclick = () => abrirLightbox(p);
+                card.innerHTML = `
+                    <div class="img-wrapper">
+                        <img src="${p.url}" alt="${p.nombre}" loading="lazy" 
+                             onerror="this.parentElement.innerHTML='<div class=\\'placeholder\\'>📷</div>'">
+                    </div>
+                    <div class="info">
+                        <div class="nombre">${p.nombre}</div>
+                        <div class="descripcion">${p.descripcion || ''}</div>
                     </div>
                 `;
                 galeria.appendChild(card);
             });
         }
 
-        function abrirModalAdmin() {
-            document.getElementById('modal-admin').classList.add('activo');
-        }
-
-        function cerrarModalAdmin() {
-            document.getElementById('modal-admin').classList.remove('activo');
-            document.getElementById('admin-url').value = '';
-            document.getElementById('admin-nombre').value = '';
-            document.getElementById('admin-descripcion').value = '';
-        }
-
-        function guardarProducto() {
-            const url = document.getElementById('admin-url').value.trim();
-            const nombre = document.getElementById('admin-nombre').value.trim();
-            const categoria = document.getElementById('admin-categoria').value;
-            const descripcion = document.getElementById('admin-descripcion').value.trim();
-
-            if (!url ||!nombre) {
-                alert('Completá la URL y el nombre');
-                return;
-            }
-
-            const locales = JSON.parse(localStorage.getItem('anitaProductosAdmin') || '[]');
-            const nuevoProducto = {
-                id: 'local_' + Date.now(),
-                nombre: nombre,
-                categoria: categoria,
-                descripcion: descripcion,
-                url: url,
-                esLocal: true
-            };
-
-            locales.push(nuevoProducto);
-            localStorage.setItem('anitaProductosAdmin', JSON.stringify(locales));
-
-            productos.push(nuevoProducto);
-            document.getElementById('modo-admin-banner').style.display = 'block';
-            renderizarGaleria();
-            cerrarModalAdmin();
-        }
-
-        function borrarProducto(id) {
-            if (!confirm('¿Borrar este producto?')) return;
-            let locales = JSON.parse(localStorage.getItem('anitaProductosAdmin') || '[]');
-            locales = locales.filter(p => p.id!== id);
-            localStorage.setItem('anitaProductosAdmin', JSON.stringify(locales));
-            productos = productos.filter(p => p.id!== id);
-            renderizarGaleria();
-        }
-
-        function exportarCatalogo() {
-            const locales = JSON.parse(localStorage.getItem('anitaProductosAdmin') || '[]');
-            if (locales.length === 0) {
-                alert('No tenés productos locales para exportar. Primero agregá productos con el botón verde.');
-                return;
-            }
-
-            const todos = [...productos.filter(p =>!p.esLocal),...locales.map(p => {
-                const {esLocal,...rest} = p;
-                return rest;
-            })];
-
-            const jsonCompleto = JSON.stringify(todos, null, 2);
-            document.getElementById('resultado-export').textContent = jsonCompleto;
-            document.getElementById('resultado-export').style.display = 'block';
-            document.getElementById('modal-exportar').classList.add('activo');
-        }
-
-        function copiarExport() {
-            const texto = document.getElementById('resultado-export').textContent;
-            navigator.clipboard.writeText(texto).then(() => {
-                alert('✅ Código copiado! Pegalo en productos.json en GitHub reemplazando todo lo que hay.');
-            });
-        }
-
-        function cerrarModalExportar() {
-            document.getElementById('modal-exportar').classList.remove('activo');
-        }
-
-        function abrirLightbox(index) {
-            indiceLightbox = index;
-            mostrarFotoLightbox();
+        function abrirLightbox(producto) {
+            document.getElementById('lightbox-img').src = producto.url;
+            document.getElementById('lightbox-nombre').textContent = producto.nombre;
+            document.getElementById('lightbox-descripcion').textContent = producto.descripcion || 'Sin descripción';
             document.getElementById('lightbox').classList.add('activo');
             document.body.style.overflow = 'hidden';
         }
@@ -310,44 +280,11 @@
             }
         }
 
-        function mostrarFotoLightbox() {
-            const producto = productosFiltrados[indiceLightbox];
-            document.getElementById('lightbox-img').src = producto.url;
-            document.getElementById('lightbox-nombre').textContent = producto.nombre;
-            document.getElementById('lightbox-categoria').textContent = producto.categoria;
-            document.getElementById('lightbox-descripcion').textContent = producto.descripcion || 'Sin descripción';
-        }
-
-        function fotoAnterior(e) {
-            e.stopPropagation();
-            indiceLightbox = (indiceLightbox - 1 + productosFiltrados.length) % productosFiltrados.length;
-            mostrarFotoLightbox();
-        }
-
-        function fotoSiguiente(e) {
-            e.stopPropagation();
-            indiceLightbox = (indiceLightbox + 1) % productosFiltrados.length;
-            mostrarFotoLightbox();
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                cerrarLightbox();
-                cerrarModalAdmin();
-                cerrarModalExportar();
-            }
-            if (document.getElementById('lightbox').classList.contains('activo')) {
-                if (e.key === 'ArrowLeft') fotoAnterior(e);
-                if (e.key === 'ArrowRight') fotoSiguiente(e);
-            }
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') cerrarLightbox();
         });
 
-        document.getElementById('modal-admin').onclick = function(e) {
-            if (e.target === this) cerrarModalAdmin();
-        };
-        document.getElementById('modal-exportar').onclick = function(e) {
-            if (e.target === this) cerrarModalExportar();
-        };
+        renderizar();
     </script>
 </body>
 </html>
