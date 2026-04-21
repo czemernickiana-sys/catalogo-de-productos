@@ -1,28 +1,3 @@
-[
-  {
-    "id": "1",
-    "nombre": "Torno Profesional Rosa 35K RPM",
-    "categoria": "maquinas",
-    "descripcion": "Torno de 35.000 RPM, súper silencioso. Ideal para manicura rusa y retiro de esmalte. Incluye 6 fresas y pedal de control.",
-    "url": "https://i.imgur.com/ejemplo1.jpg"
-  },
-  {
-    "id": "2",
-    "nombre": "Set Pinceles Kolinsky #8",
-    "categoria": "pinceles",
-    "descripcion": "Set de 5 pinceles Kolinsky para esculpido en acrílico. Mangos ergonómicos.",
-    "url": "https://i.imgur.com/ejemplo2.jpg"
-  }
-]
-  },
-  {
-    "id": "4",
-    "nombre": "Lámpara UV 48W",
-    "categoria": "lamparas",
-    "descripcion": "Cura en 30 segundos",
-    "url": "https://tu-link.jpg"
-  }
-]
 ,
   {
   "id": "3",
