@@ -14,3 +14,12 @@
     "url": "https://i.imgur.com/ejemplo2.jpg"
   }
 ]
+  },
+  {
+    "id": "4",
+    "nombre": "Lámpara UV 48W",
+    "categoria": "lamparas",
+    "descripcion": "Cura en 30 segundos",
+    "url": "https://tu-link.jpg"
+  }
+]
