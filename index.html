@@ -2,67 +2,204 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ANITA STORE - Catálogo</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #fdf2f8; color: #831843; }
-   .header { position: sticky; top: 0; background: white; z-index: 100; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.15); }
-   .header-top { padding: 16px 20px 12px; text-align: center; }
-        h1 { font-size: 28px; color: #db2777; font-weight: 600; letter-spacing: -0.5px; }
-   .tagline { font-size: 12px; color: #be185d; margin-top: 4px; }
-   .tabs-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; border-bottom: 2px solid #fce7f3; }
-   .tabs-wrapper::-webkit-scrollbar { display: none; }
-   .tabs { display: flex; gap: 0; padding: 0 16px; min-width: min-content; }
-   .tab-btn { padding: 14px 20px; background: none; border: none; border-bottom: 3px solid transparent; color: #be185d; cursor: pointer; font-size: 15px; font-weight: 600; white-space: nowrap; transition: all 0.2s; position: relative; }
-   .tab-btn.activo { color: #db2777; border-bottom-color: #ec4899; }
-   .tab-btn.activo::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 3px; background: #ec4899; }
-   .contador { padding: 12px 20px; background: #fdf2f8; color: #be185d; font-size: 13px; font-weight: 600; text-align: center; }
-   .galeria { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding: 8px; }
-   .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 1px 4px rgba(236, 72, 153, 0.1); cursor: pointer; position: relative; }
-   .card:active { transform: scale(0.97); }
-   .img-wrapper { width: 100%; aspect-ratio: 1; background: #fce7f3; position: relative; overflow: hidden; }
-   .img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; }
-   .badge { position: absolute; top: 6px; left: 6px; background: #22c55e; color: white; padding: 3px 8px; border-radius: 8px; font-size: 10px; font-weight: 700; }
-   .badge.agotado { background: #ef4444; }
-   .badge.oferta { background: #f59e0b; top: 6px; right: 6px; left: auto; }
-   .info { padding: 10px 8px; }
-   .nombre { font-size: 13px; font-weight: 600; color: #831843; line-height: 1.2; margin-bottom: 4px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 32px; }
-   .precio-oferta { font-size: 16px; font-weight: 700; color: #db2777; }
-   .cargando { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: #be185d; }
-   .cargando p { font-size: 16px; }
-   .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 1000; align-items: center; justify-content: center; }
-   .lightbox.activo { display: flex; }
-   .lightbox-contenido { width: 100%; height: 100%; position: relative; background: white; display: flex; flex-direction: column; }
-   .lightbox-img-wrapper { flex: 1; background: #000; display: flex; align-items: center; justify-content: center; position: relative; }
-   .lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; }
-   .lightbox-info { padding: 20px; background: white; max-height: 40vh; overflow-y: auto; }
-   .lightbox-info h2 { color: #db2777; font-size: 22px; margin-bottom: 8px; font-weight: 600; }
-   .lightbox-info p { color: #831843; font-size: 14px; line-height: 1.6; white-space: pre-wrap; margin-bottom: 12px; }
-   .lightbox-precio { display: flex; align-items: baseline; gap: 10px; }
-   .lightbox-precio.precio-oferta { font-size: 26px; }
-   .cerrar { position: absolute; top: 15px; right: 15px; background: rgba(239, 68, 68, 0.9); color: white; border: none; width: 44px; height: 44px; border-radius: 50%; font-size: 28px; cursor: pointer; line-height: 1; z-index: 10; }
-        @media (max-width: 380px) {
-       .galeria { grid-template-columns: repeat(2, 1fr); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background: #fdf2f8;
+            color: #831843;
+        }
+
+        /* HEADER */
+     .header {
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(236, 72, 153, 0.15);
+        }
+     .logo {
+            padding: 20px;
+            text-align: center;
+            font-size: 32px;
+            color: #db2777;
+            font-weight: bold;
+            letter-spacing: -1px;
+        }
+
+        /* PESTAÑAS */
+     .tabs-wrapper {
+            overflow-x: auto;
+            border-bottom: 2px solid #fce7f3;
+        }
+     .tabs {
+            display: flex;
+            padding: 0 16px;
+        }
+     .tab-btn {
+            padding: 14px 20px;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #be185d;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+     .tab-btn.activo {
+            color: #db2777;
+            border-bottom-color: #ec4899;
+        }
+
+        /* CONTADOR */
+     .contador {
+            padding: 12px 20px;
+            background: #fdf2f8;
+            color: #be185d;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* GRILLA - 4 COLUMNAS FIJAS */
+     .galeria {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 10px;
+        }
+     .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(236, 72, 153, 0.1);
+            cursor: pointer;
+        }
+     .card:active {
+            transform: scale(0.98);
+        }
+     .img-wrapper {
+            width: 100%;
+            aspect-ratio: 1;
+            background: #fce7f3;
+        }
+     .img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+     .info {
+            padding: 10px 8px;
+        }
+     .nombre {
+            font-size: 13px;
+            font-weight: 600;
+            color: #831843;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 34px;
+        }
+
+        /* CARGANDO */
+     .cargando {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: #be185d;
+            font-size: 16px;
+        }
+
+        /* LIGHTBOX - Cuando tocás la foto */
+     .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+     .lightbox.activo {
+            display: flex;
+        }
+     .lightbox-contenido {
+            width: 100%;
+            height: 100%;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+     .lightbox-img-wrapper {
+            flex: 1;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+     .lightbox img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+     .lightbox-info {
+            padding: 20px;
+            background: white;
+            max-height: 35vh;
+            overflow-y: auto;
+        }
+     .lightbox-info h2 {
+            color: #db2777;
+            font-size: 22px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+     .lightbox-info p {
+            color: #831843;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+     .cerrar {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            font-size: 28px;
+            cursor: pointer;
+            line-height: 1;
+            z-index: 10;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="header-top">
-            <h1>ANITA STORE</h1>
-            <p class="tagline">Catálogo Spa de Uñas</p>
-        </div>
+        <div class="logo">ANITA STORE</div>
         <div class="tabs-wrapper">
             <div class="tabs" id="tabs">
-                <button class="tab-btn activo" data-categoria="todos">Todo</button>
+                <button class="tab-btn activo" data-categoria="todos">Todos</button>
             </div>
         </div>
     </div>
 
-    <div class="contador" id="contador"></div>
+    <div class="contador" id="contador">Cargando...</div>
+
     <div class="galeria" id="galeria">
-        <div class="cargando"><p>Cargando productos...</p></div>
+        <div class="cargando">Cargando productos...</div>
     </div>
 
     <div class="lightbox" id="lightbox" onclick="cerrarLightbox(event)">
@@ -74,41 +211,19 @@
             <div class="lightbox-info">
                 <h2 id="lightbox-nombre"></h2>
                 <p id="lightbox-descripcion"></p>
-                <div class="lightbox-precio" id="lightbox-precio"></div>
             </div>
         </div>
     </div>
 
     <script>
-        // ID PÚBLICO de tu planilla - ahora sí funciona
+        // Tu planilla publicada
         const SHEET_ID = '2PACX-1vT1D4z2yxDAZ6iS3U9iOSwtu-iQaGMUhAFWT_bA9cyzPTAV8yB4l1_iMRsEv13Sybc5Jly8v3XnZiwL';
         const SHEET_URL = `https://docs.google.com/spreadsheets/d/e/${SHEET_ID}/gviz/tq?tqx=out:json`;
-
-        const CATEGORIAS = [
-            'Super ofertas!!!',
-            'Born Pretty',
-            'Ur Sugar',
-            'Rosalind',
-            'Organic Nails',
-            'Full Beauty',
-            'Productos de construccion',
-            'Herramientas',
-            'Pinceles',
-            'Pulidoras',
-            'Pulidoras para terminacion',
-            'Decoracion',
-            'Maquina uv',
-            'Prod. de esmaltado',
-            'Tips',
-            'Piedras',
-            'Glitters',
-            'Pigmentos',
-            'Stikers'
-        ];
 
         let todosProductos = [];
         let categoriaActiva = 'todos';
 
+        // Convierte links de Google Drive a imagen
         function convertirDrive(link) {
             if (!link) return '';
             const match = link.match(/[-\w]{25,}/);
@@ -118,6 +233,7 @@
             return link;
         }
 
+        // Carga los productos desde tu Excel
         async function cargarProductos() {
             try {
                 const response = await fetch(SHEET_URL);
@@ -127,51 +243,43 @@
 
                 todosProductos = rows.slice(1).map((row, i) => {
                     const c = row.c;
-                    let categoria = (c[10]?.v || 'Sin categoría').trim();
-                    if (categoria === 'Full Beuty') categoria = 'Full Beauty';
-                    if (categoria === 'Giltters') categoria = 'Glitters';
-                    if (categoria === 'WAPISIMA') categoria = 'Super ofertas!!!';
-
                     return {
                         id: i,
-                        nombre: c[2]?.v || '',
-                        img1: convertirDrive(c[1]?.v || ''),
-                        descripcion: c[7]?.v || '',
-                        precioOferta: c[8]?.v || '',
-                        stock: c[9]?.v || 'En stock',
-                        categoria: categoria
+                        nombre: c[2]?.v || '', // Columna C = Nombre
+                        img: convertirDrive(c[1]?.v || ''), // Columna B = Foto
+                        descripcion: c[7]?.v || '', // Columna H = Descripción
+                        categoria: (c[10]?.v || 'Sin categoría').trim() // Columna K = Categoría
                     };
-                }).filter(p => p.nombre && p.img1);
+                }).filter(p => p.nombre && p.img); // Solo productos con nombre y foto
 
                 generarTabs();
                 renderizar();
             } catch (error) {
                 document.getElementById('galeria').innerHTML = `
-                    <div class="cargando">
-                        <p>Error al cargar. Refrescá la página.</p>
-                    </div>
+                    <div class="cargando">Error al cargar. Refrescá la página.</div>
                 `;
+                console.error(error);
             }
         }
 
+        // Crea las pestañas según las categorías de tu Excel
         function generarTabs() {
             const tabsDiv = document.getElementById('tabs');
+            const categorias = [...new Set(todosProductos.map(p => p.categoria))];
 
-            CATEGORIAS.forEach(cat => {
-                const hayProductos = todosProductos.some(p => p.categoria === cat);
-                if (hayProductos) {
-                    const btn = document.createElement('button');
-                    btn.className = 'tab-btn';
-                    btn.textContent = cat;
-                    btn.dataset.categoria = cat;
-                    btn.onclick = () => cambiarCategoria(cat);
-                    tabsDiv.appendChild(btn);
-                }
+            categorias.sort().forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'tab-btn';
+                btn.textContent = cat;
+                btn.dataset.categoria = cat;
+                btn.onclick = () => cambiarCategoria(cat);
+                tabsDiv.appendChild(btn);
             });
 
             document.querySelector('[data-categoria="todos"]').onclick = () => cambiarCategoria('todos');
         }
 
+        // Cambia de pestaña
         function cambiarCategoria(cat) {
             categoriaActiva = cat;
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -181,19 +289,18 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // Muestra los productos
         function renderizar() {
             const galeria = document.getElementById('galeria');
             const productos = categoriaActiva === 'todos'
-         ? todosProductos
+               ? todosProductos
                 : todosProductos.filter(p => p.categoria === categoriaActiva);
 
             document.getElementById('contador').textContent =
-                categoriaActiva === 'todos'
-             ? `${productos.length} productos`
-                    : `${productos.length} en ${categoriaActiva}`;
+                `${productos.length} productos${categoriaActiva!== 'todos'? ' en ' + categoriaActiva : ''}`;
 
             if (productos.length === 0) {
-                galeria.innerHTML = `<div class="cargando"><p>No hay productos aquí todavía</p></div>`;
+                galeria.innerHTML = `<div class="cargando">No hay productos en esta categoría</div>`;
                 return;
             }
 
@@ -202,37 +309,28 @@
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.onclick = () => abrirLightbox(p);
-
-                const agotado = p.stock.toLowerCase().includes('agotado');
-                const esOferta = p.categoria === 'Super ofertas!!!';
-
                 card.innerHTML = `
                     <div class="img-wrapper">
-                        <img src="${p.img1}" alt="${p.nombre}" loading="lazy"
-                             onerror="this.src='https://via.placeholder.com/400x400/fce7f3/be185d?text=Sin+Foto'">
-                        ${agotado? '<div class="badge agotado">AGOTADO</div>' : ''}
-                        ${esOferta? '<div class="badge oferta">OFERTA</div>' : ''}
+                        <img src="${p.img}" alt="${p.nombre}" loading="lazy">
                     </div>
                     <div class="info">
                         <div class="nombre">${p.nombre}</div>
-                        <div class="precio-oferta">${p.precioOferta}</div>
                     </div>
                 `;
                 galeria.appendChild(card);
             });
         }
 
+        // Abre la foto grande
         function abrirLightbox(p) {
-            document.getElementById('lightbox-img').src = p.img1.replace('w400', 'w1200');
+            document.getElementById('lightbox-img').src = p.img.replace('w400', 'w1200');
             document.getElementById('lightbox-nombre').textContent = p.nombre;
             document.getElementById('lightbox-descripcion').textContent = p.descripcion || 'Sin descripción';
-            document.getElementById('lightbox-precio').innerHTML = `
-                <span class="precio-oferta">${p.precioOferta}</span>
-            `;
             document.getElementById('lightbox').classList.add('activo');
             document.body.style.overflow = 'hidden';
         }
 
+        // Cierra la foto
         function cerrarLightbox(e) {
             if (!e || e.target.id === 'lightbox') {
                 document.getElementById('lightbox').classList.remove('activo');
@@ -244,6 +342,7 @@
             if (e.key === 'Escape') cerrarLightbox();
         });
 
+        // Arranca todo
         cargarProductos();
     </script>
 </body>
