@@ -7,58 +7,59 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #fdf2f8; color: #831843; line-height: 1.6; }
-       .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
-        header { text-align: center; margin-bottom: 30px; }
+      .container { max-width: 1400px; margin: 0 auto; padding: 40px 20px; }
+        header { text-align: center; margin-bottom: 20px; }
         h1 { font-size: 48px; color: #db2777; font-weight: 300; letter-spacing: -1px; margin-bottom: 10px; }
-       .tagline { font-size: 16px; color: #be185d; font-weight: 400; margin-bottom: 25px; }
+      .tagline { font-size: 16px; color: #be185d; font-weight: 400; margin-bottom: 25px; }
 
-       .filtros { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 30px; }
-       .filtro-btn { padding: 10px 18px; background: white; border: 2px solid #f9a8d4; color: #be185d; border-radius: 25px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s; }
-       .filtro-btn:hover { background: #fce7f3; transform: translateY(-2px); }
-       .filtro-btn.activo { background: #ec4899; color: white; border-color: #ec4899; }
+      .tabs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 30px; border-bottom: 3px solid #fce7f3; padding-bottom: 15px; }
+      .tab-btn { padding: 12px 20px; background: white; border: none; border-bottom: 3px solid transparent; color: #be185d; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.2s; border-radius: 8px 8px 0 0; margin-bottom: -3px; }
+      .tab-btn:hover { background: #fce7f3; color: #db2777; }
+      .tab-btn.activo { background: #ec4899; color: white; border-bottom-color: #db2777; }
 
-       .contador { text-align: center; color: #be185d; font-size: 14px; margin-bottom: 20px; }
+      .contador { text-align: center; color: #be185d; font-size: 14px; margin-bottom: 20px; font-weight: 600; }
 
-       .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
-       .card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(236, 72, 153, 0.12); transition: all 0.3s ease; cursor: pointer; position: relative; }
-       .card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(236, 72, 153, 0.2); }
-       .img-wrapper { width: 100%; height: 320px; background: #fce7f3; position: relative; overflow: hidden; }
-       .img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
-       .card:hover.img-wrapper img { transform: scale(1.05); }
-       .badge { position: absolute; top: 12px; left: 12px; background: #22c55e; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
-       .badge.agotado { background: #ef4444; }
-       .info { padding: 18px; }
-       .categoria-tag { font-size: 11px; color: #ec4899; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-       .nombre { font-size: 16px; font-weight: 600; color: #831843; margin-bottom: 6px; line-height: 1.3; }
-       .descripcion { font-size: 13px; color: #be185d; line-height: 1.5; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-       .precio { display: flex; align-items: baseline; gap: 8px; }
-       .precio-oferta { font-size: 20px; font-weight: 700; color: #db2777; }
-       .precio-normal { font-size: 14px; color: #f9a8d4; text-decoration: line-through; }
+      .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
+      .card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(236, 72, 153, 0.12); transition: all 0.3s ease; cursor: pointer; position: relative; }
+      .card:hover { transform: translateY(-8px); box-shadow: 0 12px 24px rgba(236, 72, 153, 0.2); }
+      .img-wrapper { width: 100%; height: 320px; background: #fce7f3; position: relative; overflow: hidden; }
+      .img-wrapper img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+      .card:hover.img-wrapper img { transform: scale(1.05); }
+      .badge { position: absolute; top: 12px; left: 12px; background: #22c55e; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+      .badge.agotado { background: #ef4444; }
+      .badge.oferta { background: #f59e0b; top: 12px; right: 12px; left: auto; }
+      .info { padding: 18px; }
+      .nombre { font-size: 16px; font-weight: 600; color: #831843; margin-bottom: 6px; line-height: 1.3; }
+      .descripcion { font-size: 13px; color: #be185d; line-height: 1.5; margin-bottom: 10px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .precio { display: flex; align-items: baseline; gap: 8px; }
+      .precio-oferta { font-size: 20px; font-weight: 700; color: #db2777; }
+      .precio-normal { font-size: 14px; color: #f9a8d4; text-decoration: line-through; }
 
-       .cargando { text-align: center; padding: 80px 20px; color: #be185d; }
-       .cargando p { font-size: 18px; }
+      .cargando { text-align: center; padding: 80px 20px; color: #be185d; grid-column: 1 / -1; }
+      .cargando p { font-size: 18px; }
 
-       .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
-       .lightbox.activo { display: flex; }
-       .lightbox-contenido { max-width: 900px; max-height: 90vh; position: relative; background: white; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
-       .lightbox img { max-width: 100%; max-height: 60vh; object-fit: contain; background: #fce7f3; }
-       .lightbox-info { padding: 25px; overflow-y: auto; }
-       .lightbox-info h2 { color: #db2777; font-size: 24px; margin-bottom: 10px; font-weight: 600; }
-       .lightbox-info p { color: #831843; font-size: 15px; line-height: 1.7; white-space: pre-wrap; margin-bottom: 15px; }
-       .lightbox-precio { display: flex; align-items: baseline; gap: 12px; margin-top: 15px; }
-       .lightbox-precio.precio-oferta { font-size: 28px; }
-       .cerrar { position: absolute; top: 15px; right: 15px; background: #ef4444; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; line-height: 1; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 10; }
+      .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.92); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+      .lightbox.activo { display: flex; }
+      .lightbox-contenido { max-width: 900px; max-height: 90vh; position: relative; background: white; border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+      .lightbox img { max-width: 100%; max-height: 60vh; object-fit: contain; background: #fce7f3; }
+      .lightbox-info { padding: 25px; overflow-y: auto; }
+      .lightbox-info h2 { color: #db2777; font-size: 24px; margin-bottom: 10px; font-weight: 600; }
+      .lightbox-info p { color: #831843; font-size: 15px; line-height: 1.7; white-space: pre-wrap; margin-bottom: 15px; }
+      .lightbox-precio { display: flex; align-items: baseline; gap: 12px; margin-top: 15px; }
+      .lightbox-precio.precio-oferta { font-size: 28px; }
+      .cerrar { position: absolute; top: 15px; right: 15px; background: #ef4444; color: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 24px; cursor: pointer; line-height: 1; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 10; }
 
         @media (max-width: 768px) {
             h1 { font-size: 36px; }
-           .galeria { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-           .img-wrapper { height: 240px; }
-           .filtros { gap: 8px; }
-           .filtro-btn { padding: 8px 14px; font-size: 13px; }
+          .tabs { gap: 6px; }
+          .tab-btn { padding: 10px 14px; font-size: 13px; }
+          .galeria { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+          .img-wrapper { height: 240px; }
         }
         @media (max-width: 480px) {
-           .galeria { grid-template-columns: 1fr; }
-           .img-wrapper { height: 320px; }
+          .galeria { grid-template-columns: 1fr; }
+          .img-wrapper { height: 320px; }
+          .tab-btn { padding: 8px 12px; font-size: 12px; }
         }
     </style>
 </head>
@@ -69,8 +70,8 @@
             <p class="tagline">Catálogo Spa de Uñas</p>
         </header>
 
-        <div class="filtros" id="filtros">
-            <button class="filtro-btn activo" data-categoria="todos">Ver Todo</button>
+        <div class="tabs" id="tabs">
+            <button class="tab-btn activo" data-categoria="todos">Ver Todo</button>
         </div>
 
         <div class="contador" id="contador"></div>
@@ -92,14 +93,35 @@
     </div>
 
     <script>
-        // ID de tu Google Sheet
         const SHEET_ID = '1gjOWfUYDAz0XpVD1ymc0K0ARWOpLC715H9fzladUnSE';
         const SHEET_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`;
+
+        // TUS CATEGORÍAS EXACTAS EN EL ORDEN QUE QUERÉS QUE APAREZCAN
+        const CATEGORIAS = [
+            'Super ofertas!!!',
+            'Born Pretty',
+            'Ur Sugar',
+            'Rosalind',
+            'Organic Nails',
+            'Full Beauty',
+            'Productos de construccion',
+            'Herramientas',
+            'Pinceles',
+            'Pulidoras',
+            'Pulidoras para terminacion',
+            'Decoracion',
+            'Maquina uv',
+            'Prod. de esmaltado',
+            'Tips',
+            'Piedras',
+            'Glitters',
+            'Pigmentos',
+            'Stikers'
+        ];
 
         let todosProductos = [];
         let categoriaActiva = 'todos';
 
-        // Convierte link de Drive a imagen directa
         function convertirDrive(link) {
             if (!link) return '';
             const match = link.match(/[-\w]{25,}/);
@@ -109,7 +131,6 @@
             return link;
         }
 
-        // Carga datos desde Google Sheets
         async function cargarProductos() {
             try {
                 const response = await fetch(SHEET_URL);
@@ -119,20 +140,25 @@
 
                 todosProductos = rows.slice(1).map((row, i) => {
                     const c = row.c;
+                    let categoria = (c[16]?.v || 'Sin categoría').trim();
+                    // Normalizo algunos nombres que vi en tu planilla
+                    if (categoria === 'Full Beuty') categoria = 'Full Beauty';
+                    if (categoria === 'Tips') categoria = 'Tips';
+                    if (categoria === 'Giltters') categoria = 'Glitters';
+
                     return {
                         id: i,
                         nombre: c[2]?.v || 'Sin nombre',
                         img1: convertirDrive(c[3]?.v || ''),
-                        img2: convertirDrive(c[4]?.v || ''),
                         descripcion: c[12]?.v || '',
                         precioOferta: c[13]?.v || '',
                         precioNormal: c[14]?.v || '',
                         stock: c[15]?.v || 'En stock',
-                        categoria: c[16]?.v || 'Sin categoría'
+                        categoria: categoria
                     };
-                }).filter(p => p.nombre && p.img1); // Solo productos con nombre e imagen
+                }).filter(p => p.nombre && p.img1);
 
-                generarFiltros();
+                generarTabs();
                 renderizar();
             } catch (error) {
                 document.getElementById('galeria').innerHTML = `
@@ -143,44 +169,47 @@
             }
         }
 
-        // Genera botones de filtro por categoría
-        function generarFiltros() {
-            const categorias = [...new Set(todosProductos.map(p => p.categoria))].sort();
-            const filtrosDiv = document.getElementById('filtros');
+        function generarTabs() {
+            const tabsDiv = document.getElementById('tabs');
 
-            categorias.forEach(cat => {
-                const btn = document.createElement('button');
-                btn.className = 'filtro-btn';
-                btn.textContent = cat;
-                btn.dataset.categoria = cat;
-                btn.onclick = () => filtrarPorCategoria(cat);
-                filtrosDiv.appendChild(btn);
+            CATEGORIAS.forEach(cat => {
+                // Solo creo el tab si hay al menos 1 producto de esa categoría
+                const hayProductos = todosProductos.some(p => p.categoria === cat);
+                if (hayProductos || cat === 'Super ofertas!!!') {
+                    const btn = document.createElement('button');
+                    btn.className = 'tab-btn';
+                    btn.textContent = cat;
+                    btn.dataset.categoria = cat;
+                    btn.onclick = () => cambiarCategoria(cat);
+                    tabsDiv.appendChild(btn);
+                }
             });
 
-            document.querySelector('[data-categoria="todos"]').onclick = () => filtrarPorCategoria('todos');
+            document.querySelector('[data-categoria="todos"]').onclick = () => cambiarCategoria('todos');
         }
 
-        // Filtra productos
-        function filtrarPorCategoria(cat) {
+        function cambiarCategoria(cat) {
             categoriaActiva = cat;
-            document.querySelectorAll('.filtro-btn').forEach(btn => {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.toggle('activo', btn.dataset.categoria === cat);
             });
             renderizar();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Muestra productos
         function renderizar() {
             const galeria = document.getElementById('galeria');
             const productos = categoriaActiva === 'todos'
-               ? todosProductos
+              ? todosProductos
                 : todosProductos.filter(p => p.categoria === categoriaActiva);
 
             document.getElementById('contador').textContent =
-                `Mostrando ${productos.length} producto${productos.length!== 1? 's' : ''}`;
+                categoriaActiva === 'todos'
+                  ? `Mostrando ${productos.length} productos en total`
+                    : `${productos.length} producto${productos.length!== 1? 's' : ''} en ${categoriaActiva}`;
 
             if (productos.length === 0) {
-                galeria.innerHTML = `<div class="cargando"><p>No hay productos en esta categoría</p></div>`;
+                galeria.innerHTML = `<div class="cargando"><p>No hay productos en esta sección todavía</p></div>`;
                 return;
             }
 
@@ -191,21 +220,22 @@
                 card.onclick = () => abrirLightbox(p);
 
                 const agotado = p.stock.toLowerCase().includes('agotado');
+                const esOferta = p.categoria === 'Super ofertas!!!';
 
                 card.innerHTML = `
                     <div class="img-wrapper">
                         <img src="${p.img1}" alt="${p.nombre}" loading="lazy"
                              onerror="this.src='https://via.placeholder.com/400x400/fce7f3/be185d?text=Sin+Imagen'">
                         ${agotado? '<div class="badge agotado">AGOTADO</div>' : '<div class="badge">EN STOCK</div>'}
+                        ${esOferta? '<div class="badge oferta">OFERTA</div>' : ''}
                     </div>
                     <div class="info">
-                        <div class="categoria-tag">${p.categoria}</div>
                         <div class="nombre">${p.nombre}</div>
                         <div class="descripcion">${p.descripcion}</div>
                         <div class="precio">
                             <span class="precio-oferta">${p.precioOferta}</span>
                             ${p.precioNormal && p.precioNormal!== p.precioOferta
-                               ? `<span class="precio-normal">${p.precioNormal}</span>`
+                              ? `<span class="precio-normal">${p.precioNormal}</span>`
                                 : ''}
                         </div>
                     </div>
@@ -221,7 +251,7 @@
             document.getElementById('lightbox-precio').innerHTML = `
                 <span class="precio-oferta">${p.precioOferta}</span>
                 ${p.precioNormal && p.precioNormal!== p.precioOferta
-                   ? `<span class="precio-normal">${p.precioNormal}</span>`
+                  ? `<span class="precio-normal">${p.precioNormal}</span>`
                     : ''}
             `;
             document.getElementById('lightbox').classList.add('activo');
@@ -239,7 +269,6 @@
             if (e.key === 'Escape') cerrarLightbox();
         });
 
-        // Inicia
         cargarProductos();
     </script>
 </body>
