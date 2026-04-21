@@ -7,47 +7,63 @@
     <style>
         * { box-sizing: border-box; font-family: Arial, sans-serif; margin: 0; padding: 0; }
         body { background: #fff1f2; min-height: 100vh; display: flex; }
-      .sidebar { width: 260px; background: white; border-right: 2px solid #fbcfe8; padding: 25px 15px; transition: margin-left 0.3s ease; box-shadow: 2px 0 8px rgba(236, 72, 153, 0.1); position: sticky; top: 0; height: 100vh; overflow-y: auto; }
-      .sidebar.cerrado { margin-left: -260px; }
-      .sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
-      .sidebar h2 { color: #db2777; font-size: 22px; font-weight: bold; }
-      .btn-toggle { background: #ec4899; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; }
-      .btn-toggle:hover { background: #db2777; }
-      .btn-toggle-flotante { position: fixed; top: 20px; left: 20px; background: #ec4899; color: white; border: none; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-size: 20px; font-weight: bold; z-index: 999; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: none; }
-      .btn-toggle-flotante.visible { display: block; }
-      .btn-filtro { width: 100%; background: #fce7f3; color: #831843; border: 2px solid #f9a8d4; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.2s; margin-bottom: 10px; text-align: left; }
-      .btn-filtro:hover { background: #f9a8d4; color: white; transform: translateX(4px); }
-      .btn-filtro.activo { background: #ec4899; color: white; border-color: #ec4899; }
-      .main { flex: 1; padding: 25px; overflow-x: hidden; }
-      .header { margin-bottom: 25px; }
+     .sidebar { width: 260px; background: white; border-right: 2px solid #fbcfe8; padding: 25px 15px; transition: margin-left 0.3s ease; box-shadow: 2px 0 8px rgba(236, 72, 153, 0.1); position: sticky; top: 0; height: 100vh; overflow-y: auto; }
+     .sidebar.cerrado { margin-left: -260px; }
+     .sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 25px; }
+     .sidebar h2 { color: #db2777; font-size: 22px; font-weight: bold; }
+     .btn-toggle { background: #ec4899; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; }
+     .btn-toggle:hover { background: #db2777; }
+     .btn-toggle-flotante { position: fixed; top: 20px; left: 20px; background: #ec4899; color: white; border: none; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-size: 20px; font-weight: bold; z-index: 999; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: none; }
+     .btn-toggle-flotante.visible { display: block; }
+     .btn-filtro { width: 100%; background: #fce7f3; color: #831843; border: 2px solid #f9a8d4; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; transition: all 0.2s; margin-bottom: 10px; text-align: left; }
+     .btn-filtro:hover { background: #f9a8d4; color: white; transform: translateX(4px); }
+     .btn-filtro.activo { background: #ec4899; color: white; border-color: #ec4899; }
+     .btn-admin { width: 100%; background: #64748b; color: white; border: none; padding: 12px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 14px; margin-top: 15px; }
+     .btn-admin:hover { background: #475569; }
+     .main { flex: 1; padding: 25px; overflow-x: hidden; }
+     .header { margin-bottom: 25px; }
         h1 { color: #db2777; text-align: center; font-size: 42px; margin-bottom: 8px; font-weight: bold; }
-      .subtitulo { text-align: center; color: #831843; font-size: 16px; margin-bottom: 20px; }
-      .contador { text-align: center; color: #831843; font-size: 14px; margin-bottom: 20px; background: white; padding: 10px; border-radius: 8px; border: 1px solid #fbcfe8; }
-      .cargando { text-align: center; color: #db2777; font-size: 18px; padding: 40px; }
-      .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-      .card-foto { background: white; border-radius: 12px; padding: 12px; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.15); border: 1px solid #fbcfe8; transition: transform 0.2s; position: relative; }
-      .card-foto:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25); }
-      .img-container { width: 100%; height: 300px; border-radius: 8px; overflow: hidden; background: #fce7f3; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; position: relative; cursor: pointer; }
-      .img-container img { width: 100%; height: 100%; object-fit: cover; }
-      .img-placeholder { font-size: 60px; color: #f9a8d4; }
-      .info-foto { padding: 0 4px; }
-      .nombre-foto { font-weight: bold; color: #831843; font-size: 14px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .categoria-foto { font-size: 11px; color: #be185d; background: #fdf2f8; display: inline-block; padding: 3px 8px; border-radius: 4px; margin-bottom: 6px; }
-      .descripcion-foto { font-size: 12px; color: #831843; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-      .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; }
-      .lightbox.activo { display: flex; }
-      .lightbox-contenido { position: relative; max-width: 90%; max-height: 90%; display: flex; flex-direction: column; align-items: center; }
-      .lightbox-img { max-width: 100%; max-height: 70vh; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
-      .lightbox-info { background: white; padding: 20px 25px; border-radius: 8px; margin-top: 15px; text-align: left; max-width: 600px; width: 100%; }
-      .lightbox-info h3 { color: #db2777; font-size: 20px; margin-bottom: 5px; }
-      .lightbox-cat { color: #be185d; font-size: 13px; background: #fdf2f8; display: inline-block; padding: 3px 8px; border-radius: 4px; margin-bottom: 12px; }
-      .lightbox-desc { color: #831843; font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
-      .lightbox-cerrar { position: absolute; top: 20px; right: 30px; background: #ef4444; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 24px; font-weight: bold; line-height: 1; }
-      .lightbox-cerrar:hover { background: #dc2626; }
-      .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(236, 72, 153, 0.8); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 28px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
-      .lightbox-nav:hover { background: #ec4899; }
-      .lightbox-prev { left: 30px; }
-      .lightbox-next { right: 30px; }
+     .subtitulo { text-align: center; color: #831843; font-size: 16px; margin-bottom: 20px; }
+     .contador { text-align: center; color: #831843; font-size: 14px; margin-bottom: 20px; background: white; padding: 10px; border-radius: 8px; border: 1px solid #fbcfe8; }
+     .cargando { text-align: center; color: #db2777; font-size: 18px; padding: 40px; }
+     .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+     .card-foto { background: white; border-radius: 12px; padding: 12px; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.15); border: 1px solid #fbcfe8; transition: transform 0.2s; position: relative; }
+     .card-foto:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25); }
+     .img-container { width: 100%; height: 300px; border-radius: 8px; overflow: hidden; background: #fce7f3; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; position: relative; cursor: pointer; }
+     .img-container img { width: 100%; height: 100%; object-fit: cover; }
+     .img-placeholder { font-size: 60px; color: #f9a8d4; }
+     .info-foto { padding: 0 4px; }
+     .nombre-foto { font-weight: bold; color: #831843; font-size: 14px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+     .categoria-foto { font-size: 11px; color: #be185d; background: #fdf2f8; display: inline-block; padding: 3px 8px; border-radius: 4px; margin-bottom: 6px; }
+     .descripcion-foto { font-size: 12px; color: #831843; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+     .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; align-items: center; justify-content: center; }
+     .lightbox.activo { display: flex; }
+     .lightbox-contenido { position: relative; max-width: 90%; max-height: 90%; display: flex; flex-direction: column; align-items: center; }
+     .lightbox-img { max-width: 100%; max-height: 70vh; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+     .lightbox-info { background: white; padding: 20px 25px; border-radius: 8px; margin-top: 15px; text-align: left; max-width: 600px; width: 100%; }
+     .lightbox-info h3 { color: #db2777; font-size: 20px; margin-bottom: 5px; }
+     .lightbox-cat { color: #be185d; font-size: 13px; background: #fdf2f8; display: inline-block; padding: 3px 8px; border-radius: 4px; margin-bottom: 12px; }
+     .lightbox-desc { color: #831843; font-size: 14px; line-height: 1.6; white-space: pre-wrap; }
+     .lightbox-cerrar { position: absolute; top: 20px; right: 30px; background: #ef4444; color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 24px; font-weight: bold; line-height: 1; }
+     .lightbox-cerrar:hover { background: #dc2626; }
+     .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(236, 72, 153, 0.8); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 28px; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+     .lightbox-nav:hover { background: #ec4899; }
+     .lightbox-prev { left: 30px; }
+     .lightbox-next { right: 30px; }
+     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; align-items: center; justify-content: center; }
+     .modal.activo { display: flex; }
+     .modal-contenido { background: white; padding: 25px; border-radius: 12px; width: 90%; max-width: 500px; border: 2px solid #f9a8d4; max-height: 90vh; overflow-y: auto; }
+     .modal-contenido h3 { color: #db2777; margin-bottom: 15px; font-size: 20px; }
+     .ayuda-link { background: #fef3c7; border: 1px solid #fbbf24; padding: 10px; border-radius: 6px; font-size: 12px; color: #92400e; margin-bottom: 12px; line-height: 1.5; }
+     .modal-contenido input,.modal-contenido select,.modal-contenido textarea { width: 100%; padding: 10px; border: 1px solid #f9a8d4; border-radius: 6px; margin-bottom: 12px; font-size: 14px; font-family: Arial, sans-serif; }
+     .modal-contenido textarea { resize: vertical; min-height: 80px; }
+     .modal-contenido input:focus,.modal-contenido select:focus,.modal-contenido textarea:focus { outline: none; border-color: #ec4899; }
+     .modal-botones { display: flex; gap: 10px; margin-top: 10px; }
+     .btn-guardar { background: #22c55e; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1; }
+     .btn-cancelar { background: #ef4444; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; flex: 1; }
+     .resultado-json { background: #1e293b; color: #e2e8f0; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px; margin-top: 15px; white-space: pre-wrap; word-break: break-all; display: none; }
+     .btn-copiar { background: #3b82f6; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; width: 100%; }
+     .btn-copiar:hover { background: #2563eb; }
     </style>
 </head>
 <body>
@@ -62,6 +78,7 @@
         <button class="btn-filtro" onclick="filtrarCategoria('maquinas')">⚙️ Máquinas de Pulir</button>
         <button class="btn-filtro" onclick="filtrarCategoria('lamparas')">💡 Lámparas</button>
         <button class="btn-filtro" onclick="filtrarCategoria('accesorios')">✨ Accesorios</button>
+        <button class="btn-admin" onclick="abrirModalAdmin()">🔒 Modo Admin</button>
     </div>
     <button class="btn-toggle-flotante visible" id="btn-flotante" onclick="toggleSidebar()">☰</button>
     <div class="main">
@@ -73,6 +90,34 @@
         <div class="cargando" id="cargando">⏳ Cargando catálogo...</div>
         <div class="galeria" id="galeria"></div>
     </div>
+
+    <!-- MODAL ADMIN -->
+    <div class="modal" id="modal-admin">
+        <div class="modal-contenido">
+            <h3>🔒 Modo Admin - Agregar Producto</h3>
+            <div class="ayuda-link">
+                <b>Tip para Google Drive:</b> Subí → Compartir → “Cualquiera con el enlace” → Copiá el link y cambiá <code>/view</code> por <code>/preview</code> al final.<br>
+                <b>Imgur:</b> Clic derecho en la imagen → “Copiar dirección de imagen”
+            </div>
+            <input type="text" id="admin-url" placeholder="URL de la imagen (Drive, Imgur, etc.)">
+            <input type="text" id="admin-nombre" placeholder="Nombre del producto">
+            <select id="admin-categoria">
+                <option value="herramientas">Herramientas</option>
+                <option value="pinceles">Pinceles</option>
+                <option value="maquinas">Máquinas de Pulir</option>
+                <option value="lamparas">Lámparas</option>
+                <option value="accesorios">Accesorios</option>
+            </select>
+            <textarea id="admin-descripcion" placeholder="Descripción del producto..."></textarea>
+            <div class="modal-botones">
+                <button class="btn-guardar" onclick="generarJSON()">Generar Código</button>
+                <button class="btn-cancelar" onclick="cerrarModalAdmin()">Cerrar</button>
+            </div>
+            <div class="resultado-json" id="resultado-json"></div>
+            <button class="btn-copiar" id="btn-copiar" style="display:none;" onclick="copiarJSON()">📋 Copiar Código</button>
+        </div>
+    </div>
+
     <div class="lightbox" id="lightbox" onclick="cerrarLightbox(event)">
         <button class="lightbox-cerrar" onclick="cerrarLightbox()">✕</button>
         <button class="lightbox-nav lightbox-prev" onclick="fotoAnterior(event)">‹</button>
@@ -86,11 +131,13 @@
         </div>
         <button class="lightbox-nav lightbox-next" onclick="fotoSiguiente(event)">›</button>
     </div>
+
     <script>
         let productos = [];
         let categoriaActual = 'todas';
         let indiceLightbox = 0;
         let productosFiltrados = [];
+
         window.onload = async function() {
             try {
                 const response = await fetch('./productos.json');
@@ -101,18 +148,21 @@
                 document.getElementById('cargando').innerHTML = '❌ Error: No encuentro productos.json. Crealo en el repo.';
             }
         };
+
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const btnFlotante = document.getElementById('btn-flotante');
             sidebar.classList.toggle('cerrado');
             btnFlotante.classList.toggle('visible');
         }
+
         function filtrarCategoria(cat) {
             categoriaActual = cat;
             document.querySelectorAll('.btn-filtro').forEach(btn => btn.classList.remove('activo'));
             event.target.classList.add('activo');
             renderizarGaleria();
         }
+
         function renderizarGaleria() {
             const galeria = document.getElementById('galeria');
             galeria.innerHTML = '';
@@ -134,18 +184,21 @@
                 galeria.appendChild(card);
             });
         }
+
         function abrirLightbox(index) {
             indiceLightbox = index;
             mostrarFotoLightbox();
             document.getElementById('lightbox').classList.add('activo');
             document.body.style.overflow = 'hidden';
         }
+
         function cerrarLightbox(e) {
             if (!e || e.target.id === 'lightbox') {
                 document.getElementById('lightbox').classList.remove('activo');
                 document.body.style.overflow = 'auto';
             }
         }
+
         function mostrarFotoLightbox() {
             const producto = productosFiltrados[indiceLightbox];
             document.getElementById('lightbox-img').src = producto.url;
@@ -153,23 +206,77 @@
             document.getElementById('lightbox-categoria').textContent = producto.categoria;
             document.getElementById('lightbox-descripcion').textContent = producto.descripcion || 'Sin descripción';
         }
+
         function fotoAnterior(e) {
             e.stopPropagation();
             indiceLightbox = (indiceLightbox - 1 + productosFiltrados.length) % productosFiltrados.length;
             mostrarFotoLightbox();
         }
+
         function fotoSiguiente(e) {
             e.stopPropagation();
             indiceLightbox = (indiceLightbox + 1) % productosFiltrados.length;
             mostrarFotoLightbox();
         }
+
+        function abrirModalAdmin() {
+            document.getElementById('modal-admin').classList.add('activo');
+            document.getElementById('resultado-json').style.display = 'none';
+            document.getElementById('btn-copiar').style.display = 'none';
+        }
+
+        function cerrarModalAdmin() {
+            document.getElementById('modal-admin').classList.remove('activo');
+        }
+
+        function generarJSON() {
+            const url = document.getElementById('admin-url').value.trim();
+            const nombre = document.getElementById('admin-nombre').value.trim();
+            const categoria = document.getElementById('admin-categoria').value;
+            const descripcion = document.getElementById('admin-descripcion').value.trim();
+            
+            if (!url ||!nombre) {
+                alert('Completá la URL y el nombre');
+                return;
+            }
+
+            const nuevoId = (productos.length + 1).toString();
+            const nuevoProducto = {
+                id: nuevoId,
+                nombre: nombre,
+                categoria: categoria,
+                descripcion: descripcion,
+                url: url
+            };
+
+            const jsonTexto = `,\n  ${JSON.stringify(nuevoProducto, null, 2)}`;
+            
+            document.getElementById('resultado-json').textContent = jsonTexto;
+            document.getElementById('resultado-json').style.display = 'block';
+            document.getElementById('btn-copiar').style.display = 'block';
+        }
+
+        function copiarJSON() {
+            const texto = document.getElementById('resultado-json').textContent;
+            navigator.clipboard.writeText(texto).then(() => {
+                alert('✅ Código copiado! Ahora pegalo al final de tu productos.json en GitHub (antes del ] final)');
+            });
+        }
+
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') cerrarLightbox();
+            if (e.key === 'Escape') {
+                cerrarLightbox();
+                cerrarModalAdmin();
+            }
             if (document.getElementById('lightbox').classList.contains('activo')) {
                 if (e.key === 'ArrowLeft') fotoAnterior(e);
                 if (e.key === 'ArrowRight') fotoSiguiente(e);
             }
         });
+
+        document.getElementById('modal-admin').onclick = function(e) {
+            if (e.target === this) cerrarModalAdmin();
+        };
     </script>
 </body>
 </html>
