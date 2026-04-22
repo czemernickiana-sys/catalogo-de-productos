@@ -1,338 +1,748 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANITA STORE - Catálogo</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: Arial, sans-serif;
-            background: #fdf2f8;
-            color: #831843;
-        }
+<!-- Playables SDK -->
+<script>// Playables SDK v1.0.0
+// Game lifecycle bridge: rAF-based game-ready detection + event communication
+(function() {
+  'use strict';
 
-     .header {
-            position: sticky;
-            top: 0;
-            background: white;
-            z-index: 100;
-            box-shadow: 0 2px 8px rgba(236, 72, 153, 0.15);
-        }
-     .logo {
-            padding: 20px;
-            text-align: center;
-            font-size: 32px;
-            color: #db2777;
-            font-weight: bold;
-            letter-spacing: -1px;
-        }
+  // Idempotency: skip if already initialized (e.g., server-side injection
+  // followed by client-side inject-javascript via the Bloks webview component).
+  if (window.playablesSDK) return;
 
-     .tabs-wrapper {
-            overflow-x: auto;
-            border-bottom: 2px solid #fce7f3;
-        }
-     .tabs {
-            display: flex;
-            padding: 0 16px;
-        }
-     .tab-btn {
-            padding: 14px 20px;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            color: #be185d;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-     .tab-btn.activo {
-            color: #db2777;
-            border-bottom-color: #ec4899;
-        }
+  var HANDLER_NAME = 'playablesGameEventHandler';
+  var ANDROID_BRIDGE_NAME = '_MetaPlayablesBridge';
+  var RAF_FRAME_THRESHOLD = 3;
 
-     .contador {
-            padding: 12px 20px;
-            background: #fdf2f8;
-            color: #be185d;
-            font-size: 13px;
-            font-weight: 600;
-            text-align: center;
-        }
+  var gameReadySent = false;
+  var firstInteractionSent = false;
+  var errorSent = false;
+  var frameCount = 0;
+  var originalRAF = window.requestAnimationFrame;
 
-     .galeria {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            padding: 10px;
-        }
-     .card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 1px 4px rgba(236, 72, 153, 0.1);
-            cursor: pointer;
-        }
-     .card:active {
-            transform: scale(0.98);
-        }
-     .img-wrapper {
-            width: 100%;
-            aspect-ratio: 1;
-            background: #fce7f3;
-        }
-     .img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-     .info {
-            padding: 10px 8px;
-        }
-     .nombre {
-            font-size: 13px;
-            font-weight: 600;
-            color: #831843;
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            min-height: 34px;
-        }
+  // --- Transport Layer ---
 
-     .cargando {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-            color: #be185d;
-            font-size: 16px;
-        }
+  function hasIOSBridge() {
+    return !!(window.webkit &&
+              window.webkit.messageHandlers &&
+              window.webkit.messageHandlers[HANDLER_NAME]);
+  }
 
-     .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-     .lightbox.activo {
-            display: flex;
-        }
-     .lightbox-contenido {
-            width: 100%;
-            height: 100%;
-            background: white;
-            display: flex;
-            flex-direction: column;
-        }
-     .lightbox-img-wrapper {
-            flex: 1;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-     .lightbox img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-        }
-     .lightbox-info {
-            padding: 20px;
-            background: white;
-            max-height: 35vh;
-            overflow-y: auto;
-        }
-     .lightbox-info h2 {
-            color: #db2777;
-            font-size: 22px;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-     .lightbox-info p {
-            color: #831843;
-            font-size: 14px;
-            line-height: 1.6;
-            white-space: pre-wrap;
-        }
-     .cerrar {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: rgba(239, 68, 68, 0.9);
-            color: white;
-            border: none;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            font-size: 28px;
-            cursor: pointer;
-            line-height: 1;
-            z-index: 10;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <div class="logo">ANITA STORE</div>
-        <div class="tabs-wrapper">
-            <div class="tabs" id="tabs">
-                <button class="tab-btn activo" data-categoria="todos">Todos</button>
-            </div>
-        </div>
-    </div>
+  function hasAndroidBridge() {
+    return !!(window[ANDROID_BRIDGE_NAME] &&
+              typeof window[ANDROID_BRIDGE_NAME].postEvent === 'function');
+  }
 
-    <div class="contador" id="contador">Cargando...</div>
+  function isInIframe() {
+    return !!(window.parent && window.parent !== window);
+  }
 
-    <div class="galeria" id="galeria">
-        <div class="cargando">Cargando productos...</div>
-    </div>
+  function sendEvent(eventName, payload) {
+    var message = {
+      type: eventName,
+      payload: payload || {},
+      timestamp: Date.now()
+    };
 
-    <div class="lightbox" id="lightbox" onclick="cerrarLightbox(event)">
-        <div class="lightbox-contenido" onclick="event.stopPropagation()">
-            <button class="cerrar" onclick="cerrarLightbox()">×</button>
-            <div class="lightbox-img-wrapper">
-                <img id="lightbox-img" src="" alt="">
-            </div>
-            <div class="lightbox-info">
-                <h2 id="lightbox-nombre"></h2>
-                <p id="lightbox-descripcion"></p>
-            </div>
-        </div>
-    </div>
+    if (hasIOSBridge()) {
+      try {
+        window.webkit.messageHandlers[HANDLER_NAME].postMessage(message);
+      } catch (e) { /* ignore */ }
+      return;
+    }
 
-    <script>
-        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1D4z2yxDAZ6iS3U9iOSwtu-iQaGMUhAFWT_bA9cyzPTAV8yB4l1_iMRsEv13Sybc5Jly8v3XnZiwL/pub?output=csv';
+    if (hasAndroidBridge()) {
+    try {
+      var p = payload || {};
+      p.__secureToken = window.__fbAndroidBridgeAuthToken || '';
+      window[ANDROID_BRIDGE_NAME].postEvent(
+        eventName,
+        JSON.stringify(p)
+      );
+    } catch (e) { /* ignore */ }
+    return;
+  }
 
-        let todosProductos = [];
-        let categoriaActiva = 'todos';
+    if (isInIframe()) {
+      try {
+        window.parent.postMessage(message, '*');
+      } catch (e) { /* ignore */ }
+      return;
+    }
+  }
 
-        function convertirDrive(link) {
-            if (!link) return '';
-            const match = link.match(/[-\w]{25,}/);
-            if (match) {
-                return `https://drive.google.com/thumbnail?id=${match[0]}&sz=w400`;
-            }
-            return link;
-        }
+  // --- rAF Game-Ready Detection ---
 
-        async function cargarProductos() {
-            try {
-                const response = await fetch(SHEET_URL);
-                const csv = await response.text();
-                const filas = csv.split('\n');
-                
-                todosProductos = filas.slice(1).map((fila, i) => {
-                    const c = fila.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
-                    const limpiar = (txt) => txt ? txt.replace(/^"|"$/g, '').trim() : '';
-                    
-                    return {
-                        id: i,
-                        img: convertirDrive(limpiar(c[1])),
-                        nombre: limpiar(c[2]),
-                        descripcion: limpiar(c[7]),
-                        categoria: limpiar(c[10]) || 'Sin categoría'
-                    };
-                }).filter(p => p.nombre && p.img);
+  function onFrame() {
+    if (gameReadySent) return;
 
-                if(todosProductos.length === 0) {
-                    throw new Error('No se encontraron productos con nombre y foto');
-                }
+    frameCount++;
+    if (frameCount >= RAF_FRAME_THRESHOLD) {
+      gameReadySent = true;
+      sendEvent('game_ready', {
+        frame_count: frameCount,
+        detected_at: Date.now()
+      });
+      return;
+    }
 
-                generarTabs();
-                renderizar();
-            } catch (error) {
-                document.getElementById('galeria').innerHTML = `
-                    <div class="cargando">Error al cargar: ${error.message}</div>
-                `;
-                console.error(error);
-            }
-        }
+    originalRAF.call(window, onFrame);
+  }
 
-        function generarTabs() {
-            const tabsDiv = document.getElementById('tabs');
-            const categorias = [...new Set(todosProductos.map(p => p.categoria))];
-            
-            categorias.sort().forEach(cat => {
-                const btn = document.createElement('button');
-                btn.className = 'tab-btn';
-                btn.textContent = cat;
-                btn.dataset.categoria = cat;
-                btn.onclick = () => cambiarCategoria(cat);
-                tabsDiv.appendChild(btn);
+  if (originalRAF) {
+    window.requestAnimationFrame = function(callback) {
+      if (!gameReadySent) {
+        return originalRAF.call(window, function(timestamp) {
+          frameCount++;
+          if (frameCount >= RAF_FRAME_THRESHOLD && !gameReadySent) {
+            gameReadySent = true;
+            sendEvent('game_ready', {
+              frame_count: frameCount,
+              detected_at: Date.now()
             });
-
-            document.querySelector('[data-categoria="todos"]').onclick = () => cambiarCategoria('todos');
-        }
-
-        function cambiarCategoria(cat) {
-            categoriaActiva = cat;
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.toggle('activo', btn.dataset.categoria === cat);
-            });
-            renderizar();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function renderizar() {
-            const galeria = document.getElementById('galeria');
-            const productos = categoriaActiva === 'todos' 
-                ? todosProductos 
-                : todosProductos.filter(p => p.categoria === categoriaActiva);
-            
-            document.getElementById('contador').textContent = 
-                `${productos.length} productos${categoriaActiva !== 'todos' ? ' en ' + categoriaActiva : ''}`;
-
-            if (productos.length === 0) {
-                galeria.innerHTML = `<div class="cargando">No hay productos en esta categoría</div>`;
-                return;
-            }
-
-            galeria.innerHTML = '';
-            productos.forEach(p => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.onclick = () => abrirLightbox(p);
-                card.innerHTML = `
-                    <div class="img-wrapper">
-                        <img src="${p.img}" alt="${p.nombre}" loading="lazy">
-                    </div>
-                    <div class="info">
-                        <div class="nombre">${p.nombre}</div>
-                    </div>
-                `;
-                galeria.appendChild(card);
-            });
-        }
-
-        function abrirLightbox(p) {
-            document.getElementById('lightbox-img').src = p.img.replace('w400', 'w1200');
-            document.getElementById('lightbox-nombre').textContent = p.nombre;
-            document.getElementById('lightbox-descripcion').textContent = p.descripcion || 'Sin descripción';
-            document.getElementById('lightbox').classList.add('activo');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function cerrarLightbox(e) {
-            if (!e || e.target.id === 'lightbox') {
-                document.getElementById('lightbox').classList.remove('activo');
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') cerrarLightbox();
+          }
+          callback(timestamp);
         });
+      }
+      return originalRAF.call(window, callback);
+    };
+  }
 
-        cargarProductos();
-    </script>
+  // --- First User Interaction Detection ---
+
+  function setupFirstInteractionDetection() {
+    var events = ['touchstart', 'mousedown', 'keydown'];
+
+    function onFirstInteraction() {
+      if (firstInteractionSent) return;
+      firstInteractionSent = true;
+      sendEvent('user_interaction_start', null);
+
+      for (var i = 0; i < events.length; i++) {
+        document.removeEventListener(events[i], onFirstInteraction, true);
+      }
+    }
+
+    for (var i = 0; i < events.length; i++) {
+      document.addEventListener(events[i], onFirstInteraction, true);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupFirstInteractionDetection);
+  } else {
+    setupFirstInteractionDetection();
+  }
+
+  // --- Auto Error Capture ---
+
+  window.addEventListener('error', function(event) {
+    if (errorSent) return;
+    errorSent = true;
+    sendEvent('error', {
+      message: event.message || 'Unknown error',
+      source: event.filename || '',
+      lineno: event.lineno || 0,
+      colno: event.colno || 0,
+      auto_captured: true
+    });
+  });
+
+  window.addEventListener('unhandledrejection', function(event) {
+    if (errorSent) return;
+    errorSent = true;
+    var reason = event.reason;
+    sendEvent('error', {
+      message: (reason instanceof Error) ? reason.message : String(reason),
+      type: 'unhandled_promise_rejection',
+      auto_captured: true
+    });
+  });
+
+  // --- Public API ---
+
+  window.playablesSDK = {
+    complete: function(score) {
+      sendEvent('game_ended', {
+        score: score,
+        completed: true
+      });
+    },
+
+    error: function(message) {
+      if (errorSent) return;
+      errorSent = true;
+      sendEvent('error', {
+        message: message || 'Unknown error',
+        auto_captured: false
+      });
+    },
+
+    sendEvent: function(eventName, payload) {
+      if (!eventName || typeof eventName !== 'string') return;
+      sendEvent(eventName, payload);
+    }
+  };
+
+  // Kick off rAF detection in case no game code calls rAF immediately
+  if (originalRAF) {
+    originalRAF.call(window, onFrame);
+  }
+})();</script>
+<script>window.Intl=window.Intl||{};Intl.t=function(s){return(Intl._locale&&Intl._locale[s])||s;};</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uñas Pro - Catálogo de Suministros de Belleza</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brand: {
+            pink: '#ec4899',
+            violet: '#8b5cf6',
+            dark: '#2b1b3b',
+            light: '#fdf4ff'
+          }
+        },
+        fontFamily: {
+          sans: ['Poppins', 'sans-serif']
+        },
+        animation: {
+          'fade-in': 'fadeIn 0.5s ease-in-out',
+          'slide-up': 'slideUp 0.4s ease-out'
+        },
+        keyframes: {
+          fadeIn: {
+            '0%': { opacity: '0' },
+            '100%': { opacity: '1' }
+          },
+          slideUp: {
+            '0%': { transform: 'translateY(20px)', opacity: '0' },
+            '100%': { transform: 'translateY(0)', opacity: '1' }
+          }
+        }
+      }
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  /* Layout masonry con CSS columns para performance en 400+ items */
+  .masonry {
+    column-count: 1;
+    column-gap: 1.5rem;
+  }
+  @media (min-width: 640px) { .masonry { column-count: 2; } }
+  @media (min-width: 1024px) { .masonry { column-count: 3; } }
+  @media (min-width: 1280px) { .masonry { column-count: 4; } }
+  
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Smooth video transition on hover */
+  .product-media video {
+    transition: opacity 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .product-media:hover video {
+    opacity: 1;
+  }
+  .product-media:hover img {
+    opacity: 0;
+  }
+  
+  /* Scrollbar personalizado */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #f1f1f1; }
+  ::-webkit-scrollbar-thumb { 
+    background: linear-gradient(to bottom, #ec4899, #8b5cf6);
+    border-radius: 10px;
+  }
+  
+  /* Loader skeleton */
+  .skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
+  @keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+</style>
+</head>
+<body class="bg-gradient-to-br from-brand-light via-white to-purple-50 font-sans text-gray-800">
+
+<!-- 
+  ============================================
+  COMO AGREGAR PRODUCTOS A productos.json
+  ============================================
+  1. Crea un archivo productos.json en la raíz de tu proyecto con esta estructura:
+  [
+    {
+      "id": "BP001",
+      "nombre": "Gel Polish Born Pretty 15ml",
+      "categoria": "Born Pretty",
+      "marca": "Born Pretty",
+      "imagen": "img/bornpretty-gel.jpg",
+      "video": "video/bornpretty-gel.mp4",
+      "descripcion": "Esmalte en gel de alta pigmentación con duración de 21 días",
+      "link": "https://wa.me/521000000000?text=Me%20interesa%20BP001"
+    }
+  ]
+  
+  Campos: id, nombre, categoria, marca, imagen, video, descripcion, link
+  El campo "video" es opcional. Si está vacío no se mostrará video al hover.
+  
+  ============================================
+  COMO DESPLEGAR EN GITHUB PAGES
+  ============================================
+  1. Crea un repositorio en GitHub y sube index.html + productos.json + carpeta /img /video
+  2. Ve a Settings > Pages > Source: Deploy from branch > Branch: main > /root
+  3. Tu sitio estará en: https://tuusuario.github.io/turepo/
+  4. Para rutas relativas: usa "img/" en lugar de "/img/" para que funcione en /turepo/
+-->
+
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-purple-100 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-gradient-to-br from-brand-pink to-brand-violet rounded-xl flex items-center justify-center shadow-lg">
+          <i class="fa-solid fa-hand-sparkles text-white text-xl"></i>
+        </div>
+        <div>
+          <h1 class="text-2xl font-bold bg-gradient-to-r from-brand-pink to-brand-violet bg-clip-text text-transparent">Uñas Pro</h1>
+          <p class="text-xs text-gray-500 -mt-1">Catálogo Mayorista</p>
+        </div>
+      <div class="flex items-center gap-4">
+        <a href="#contacto" class="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-pink to-brand-violet text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span>Contactar</span>
+        </a>
+        <button id="menuBtn" class="lg:hidden p-2 text-gray-600">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-r from-brand-pink/10 to-brand-violet/10"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative">
+    <div class="text-center max-w-3xl mx-auto animate-slide-up">
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
+        Todo para tus <span class="bg-gradient-to-r from-brand-pink to-brand-violet bg-clip-text text-transparent">Uñas Perfectas</span>
+      </h2>
+      <p class="text-lg text-gray-600 mb-8">Explora nuestro catálogo con más de 400 productos de las mejores marcas. Insumos profesionales para nail art, construcción y decoración.</p>
+      <div class="relative max-w-xl mx-auto">
+        <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+        <input type="text" id="searchInput" placeholder="Buscar producto, marca o categoría..." class="w-full pl-12 pr-4 py-4 rounded-full border-2 border-purple-100 focus:border-brand-violet focus:ring-4 focus:ring-brand-violet/20 outline-none transition-all shadow-sm">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Filtros -->
+<section class="sticky top-20 z-40 bg-white/95 backdrop-blur-lg border-y border-purple-100 py-4 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
+      <div class="w-full lg:w-auto">
+        <p class="text-sm font-semibold text-gray-500 mb-2 flex items-center gap-2">
+          <i class="fa-solid fa-filter text-brand-violet"></i> Filtrar por categoría:
+        </p>
+        <div id="filterBtns" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div class="w-full lg:w-auto">
+        <p class="text-sm font-semibold text-gray-500 mb-2 flex items-center gap-2">
+          <i class="fa-solid fa-tags text-brand-pink"></i> Filtrar por marca:
+        </p>
+        <select id="marcaSelect" class="w-full lg:w-64 px-4 py-2.5 rounded-full border-2 border-purple-100 focus:border-brand-pink focus:ring-4 focus:ring-brand-pink/20 outline-none transition-all bg-white text-sm font-medium">
+          <option value="Todas">Todas las marcas</option>
+        </select>
+      </div>
+    <div id="activeFilters" class="mt-3 flex flex-wrap gap-2"></div>
+  </div>
+</section>
+
+<!-- Contador de resultados -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+  <p id="resultsCount" class="text-sm text-gray-600 font-medium"></p>
+</div>
+
+<!-- Grid de productos -->
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div id="productGrid" class="masonry"></div>
+  
+  <!-- Loader -->
+  <div id="loader" class="text-center py-12 hidden">
+    <div class="inline-block w-12 h-12 border-4 border-brand-pink/30 border-t-brand-pink rounded-full animate-spin"></div>
+    <p class="mt-4 text-gray-500 font-medium">Cargando más productos...</p>
+  </div>
+  
+  <!-- Sin resultados -->
+  <div id="noResults" class="hidden text-center py-20">
+    <i class="fa-regular fa-face-sad-tear text-6xl text-gray-300 mb-4"></i>
+    <h3 class="text-2xl font-bold text-gray-700 mb-2">No encontramos productos</h3>
+    <p class="text-gray-500">Intenta con otros filtros o términos de búsqueda</p>
+  </div>
+</main>
+
+<!-- Modal Ver más -->
+<div id="productModal" class="fixed inset-0 z-[100] hidden">
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+  <div class="absolute inset-0 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-slide-up" onclick="event.stopPropagation()">
+      <div id="modalContent"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer id="contacto" class="bg-gradient-to-br from-brand-dark to-purple-900 text-white mt-20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 bg-gradient-to-br from-brand-pink to-brand-violet rounded-lg flex items-center justify-center">
+            <i class="fa-solid fa-hand-sparkles"></i>
+          </div>
+          <h3 class="text-xl font-bold">Uñas Pro</h3>
+        </div>
+        <p class="text-purple-200 text-sm">Distribuidores de insumos profesionales para nail art con más de 400 productos en stock.</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Contacto</h4>
+        <div class="space-y-2 text-sm text-purple-200">
+          <p><i class="fa-brands fa-whatsapp mr-2"></i> +52 1 000 000 0000</p>
+          <p><i class="fa-solid fa-envelope mr-2"></i> ventas@unaspro.com</p>
+          <p><i class="fa-solid fa-location-dot mr-2"></i> CDMX, México</p>
+        </div>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">Horarios</h4>
+        <p class="text-sm text-purple-200">Lunes a Sábado<br>9:00 AM - 7:00 PM</p>
+      </div>
+    <div class="border-t border-purple-800 mt-8 pt-6 text-center text-sm text-purple-300">
+      <p>&copy; 2024 Uñas Pro. Todos los derechos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Estado global de la app
+  const state = {
+    productos: [],
+    productosFiltrados: [],
+    categoriaActual: 'Todas',
+    marcaActual: 'Todas',
+    busqueda: '',
+    pagina: 0,
+    porPagina: 20,
+    cargando: false,
+    categorias: [
+      'Born Pretty', 'Ur Sugar', 'Rosalind', 'Organic Nails', 'Full Beauty',
+      'Productos de construccion', 'Herramientas', 'Pinceles', 'Pulidoras',
+      'Decoracion', 'Maquina uv', 'Prod. de esmaltado', 'Super ofertas!!!',
+      'Tips', 'Pulidoras para terminacion', 'Piedras', 'Giltters', 'Pigmentos', 'Stikers'
+    ]
+  };
+
+  // Elementos del DOM
+  const productGrid = document.getElementById('productGrid');
+  const loader = document.getElementById('loader');
+  const noResults = document.getElementById('noResults');
+  const resultsCount = document.getElementById('resultsCount');
+  const searchInput = document.getElementById('searchInput');
+  const filterBtns = document.getElementById('filterBtns');
+  const marcaSelect = document.getElementById('marcaSelect');
+  const activeFilters = document.getElementById('activeFilters');
+  const productModal = document.getElementById('productModal');
+  const modalContent = document.getElementById('modalContent');
+
+  // 1. Inicializar app
+  async function init() {
+    try {
+      const res = await fetch('productos.json');
+      if (!res.ok) throw new Error('No se encontró productos.json');
+      state.productos = await res.json();
+      state.productosFiltrados = [...state.productos];
+      
+      renderFiltrosCategorias();
+      renderFiltrosMarcas();
+      renderProductos(true);
+      setupInfiniteScroll();
+      setupBusqueda();
+    } catch (err) {
+      console.error('Error cargando productos:', err);
+      productGrid.innerHTML = `
+        <div class="col-span-full text-center py-20">
+          <i class="fa-solid fa-triangle-exclamation text-5xl text-red-400 mb-4"></i>
+          <h3 class="text-xl font-bold text-gray-700 mb-2">Error al cargar productos</h3>
+          <p class="text-gray-500">Verifica que productos.json exista en la raíz del proyecto</p>
+        </div>
+      `;
+    }
+  }
+
+  // 2. Renderizar botones de categoría
+  function renderFiltrosCategorias() {
+    const btns = ['Todas', ...state.categorias].map(cat => `
+      <button data-categoria="${cat}" class="filter-cat-btn px-4 py-2 rounded-full text-sm font-medium transition-all ${state.categoriaActual === cat ? 'bg-gradient-to-r from-brand-pink to-brand-violet text-white shadow-lg' : 'bg-white border-2 border-purple-100 text-gray-700 hover:border-brand-violet hover:bg-purple-50'}">
+        ${cat}
+      </button>
+    `).join('');
+    filterBtns.innerHTML = btns;
+    
+    document.querySelectorAll('.filter-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.categoriaActual = btn.dataset.categoria;
+        aplicarFiltros();
+        renderFiltrosCategorias();
+      });
+    });
+  }
+
+  // 3. Renderizar select de marcas únicas
+  function renderFiltrosMarcas() {
+    const marcas = [...new Set(state.productos.map(p => p.marca))].sort();
+    marcaSelect.innerHTML = '<option value="Todas">Todas las marcas</option>' + 
+      marcas.map(m => `<option value="${m}">${m}</option>`).join('');
+    
+    marcaSelect.addEventListener('change', (e) => {
+      state.marcaActual = e.target.value;
+      aplicarFiltros();
+    });
+  }
+
+  // 4. Aplicar filtros y búsqueda
+  function aplicarFiltros() {
+    let filtrados = [...state.productos];
+    
+    if (state.categoriaActual !== 'Todas') {
+      filtrados = filtrados.filter(p => p.categoria === state.categoriaActual);
+    }
+    
+    if (state.marcaActual !== 'Todas') {
+      filtrados = filtrados.filter(p => p.marca === state.marcaActual);
+    }
+    
+    if (state.busqueda) {
+      const q = state.busqueda.toLowerCase();
+      filtrados = filtrados.filter(p => 
+        p.nombre.toLowerCase().includes(q) ||
+        p.descripcion.toLowerCase().includes(q) ||
+        p.marca.toLowerCase().includes(q) ||
+        p.categoria.toLowerCase().includes(q)
+      );
+    }
+    
+    state.productosFiltrados = filtrados;
+    state.pagina = 0;
+    renderProductos(true);
+    renderActiveFilters();
+    updateResultsCount();
+  }
+
+  // 5. Renderizar productos con paginación
+  function renderProductos(reset = false) {
+    if (reset) productGrid.innerHTML = '';
+    
+    const inicio = state.pagina * state.porPagina;
+    const fin = inicio + state.porPagina;
+    const productosPagina = state.productosFiltrados.slice(inicio, fin);
+    
+    if (productosPagina.length === 0 && reset) {
+      noResults.classList.remove('hidden');
+      resultsCount.textContent = '';
+      return;
+    }
+    
+    noResults.classList.add('hidden');
+    
+    const html = productosPagina.map(p => `
+      <div class="masonry-item animate-fade-in">
+        <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group">
+          <div class="product-media relative aspect-[3/4] bg-gray-100 overflow-hidden">
+            <img src="${p.imagen}" alt="${p.nombre}" loading="lazy" class="w-full h-full object-cover transition-opacity duration-400">
+            ${p.video ? `<video src="${p.video}" muted loop playsinline class="absolute inset-0 w-full h-full object-cover"></video>` : ''}
+            <div class="absolute top-3 left-3 bg-gradient-to-r from-brand-pink to-brand-violet text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
+              ${p.marca}
+            </div>
+          <div class="p-5">
+            <span class="text-xs font-semibold text-brand-violet uppercase tracking-wide">${p.categoria}</span>
+            <h3 class="font-bold text-gray-800 mt-1 mb-2 line-clamp-2 min-h-[3rem]">${p.nombre}</h3>
+            <p class="text-sm text-gray-600 line-clamp-2 mb-4">${p.descripcion}</p>
+            <div class="flex gap-2">
+              <button onclick='verMas(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="flex-1 bg-gradient-to-r from-brand-pink to-brand-violet text-white font-semibold py-2.5 px-4 rounded-xl hover:shadow-lg hover:scale-105 transition-all text-sm">
+                Ver más
+              </button>
+              ${p.link ? `<a href="${p.link}" target="_blank" class="bg-green-500 hover:bg-green-600 text-white p-2.5 rounded-xl transition-all hover:scale-105"><i class="fa-brands fa-whatsapp"></i></a>` : ''}
+            </div>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    
+    productGrid.insertAdjacentHTML('beforeend', html);
+    
+    // Activar videos al hover solo en desktop
+    if (window.matchMedia('(hover: hover)').matches) {
+      document.querySelectorAll('.product-media video').forEach(vid => {
+        const parent = vid.parentElement;
+        parent.addEventListener('mouseenter', () => vid.play().catch(() => {}));
+        parent.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
+      });
+    }
+    
+    updateResultsCount();
+  }
+
+  // 6. Infinite scroll optimizado para 400+ items
+  function setupInfiniteScroll() {
+    const observer = new IntersectionObserver(async (entries) => {
+      if (entries[0].isIntersecting && !state.cargando) {
+        const totalMostrados = (state.pagina + 1) * state.porPagina;
+        if (totalMostrados < state.productosFiltrados.length) {
+          state.cargando = true;
+          loader.classList.remove('hidden');
+          
+          // Simular carga para UX
+          await new Promise(r => setTimeout(r, 300));
+          
+          state.pagina++;
+          renderProductos(false);
+          
+          loader.classList.add('hidden');
+          state.cargando = false;
+        }
+      }
+    }, { rootMargin: '400px' });
+    
+    observer.observe(loader);
+  }
+
+  // 7. Búsqueda con debounce
+  function setupBusqueda() {
+    let timeout;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        state.busqueda = e.target.value.trim();
+        aplicarFiltros();
+      }, 300);
+    });
+  }
+
+  // 8. Modal Ver más
+  function verMas(producto) {
+    modalContent.innerHTML = `
+      <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-all z-10">
+        <i class="fa-solid fa-xmark text-xl"></i>
+      </button>
+      <div class="grid md:grid-cols-2 gap-0">
+        <div class="bg-gray-100 relative aspect-square md:aspect-auto">
+          ${producto.video ? 
+            `<video src="${producto.video}" controls autoplay loop class="w-full h-full object-cover"></video>` :
+            `<img src="${producto.imagen}" alt="${producto.nombre}" class="w-full h-full object-cover">`
+          }
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="bg-gradient-to-r from-brand-pink to-brand-violet text-white text-xs font-semibold px-3 py-1 rounded-full">${producto.marca}</span>
+            <span class="text-xs font-semibold text-brand-violet uppercase">${producto.categoria}</span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">${producto.nombre}</h2>
+          <div class="flex-1">
+            <h3 class="font-semibold text-gray-700 mb-2">Descripción:</h3>
+            <p class="text-gray-600 leading-relaxed">${producto.descripcion}</p>
+            <div class="mt-6 p-4 bg-purple-50 rounded-xl border border-purple-100">
+              <p class="text-sm text-gray-700"><i class="fa-solid fa-circle-info text-brand-violet mr-2"></i>ID del producto: <span class="font-semibold">${producto.id}</span></p>
+            </div>
+          ${producto.link ? `
+          <a href="${producto.link}" target="_blank" class="mt-6 w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 transition-all">
+            <i class="fa-brands fa-whatsapp text-xl"></i>
+            Consultar por WhatsApp
+          </a>` : ''}
+        </div>
+      </div>
+    `;
+    productModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    productModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  // 9. Filtros activos
+  function renderActiveFilters() {
+    const filters = [];
+    if (state.categoriaActual !== 'Todas') {
+      filters.push(`<span class="inline-flex items-center gap-2 bg-brand-violet/10 text-brand-violet px-3 py-1 rounded-full text-xs font-medium">
+        ${state.categoriaActual} <button onclick="clearCategoria()"><i class="fa-solid fa-xmark"></i></button>
+      </span>`);
+    }
+    if (state.marcaActual !== 'Todas') {
+      filters.push(`<span class="inline-flex items-center gap-2 bg-brand-pink/10 text-brand-pink px-3 py-1 rounded-full text-xs font-medium">
+        ${state.marcaActual} <button onclick="clearMarca()"><i class="fa-solid fa-xmark"></i></button>
+      </span>`);
+    }
+    if (state.busqueda) {
+      filters.push(`<span class="inline-flex items-center gap-2 bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">
+        "${state.busqueda}" <button onclick="clearBusqueda()"><i class="fa-solid fa-xmark"></i></button>
+      </span>`);
+    }
+    activeFilters.innerHTML = filters.join('');
+  }
+
+  function clearCategoria() {
+    state.categoriaActual = 'Todas';
+    renderFiltrosCategorias();
+    aplicarFiltros();
+  }
+  function clearMarca() {
+    state.marcaActual = 'Todas';
+    marcaSelect.value = 'Todas';
+    aplicarFiltros();
+  }
+  function clearBusqueda() {
+    state.busqueda = '';
+    searchInput.value = '';
+    aplicarFiltros();
+  }
+
+  function updateResultsCount() {
+    const total = state.productosFiltrados.length;
+    const mostrando = Math.min((state.pagina + 1) * state.porPagina, total);
+    resultsCount.textContent = total > 0 ? `Mostrando ${mostrando} de ${total} productos` : '';
+  }
+
+  // Menú móvil
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    window.scrollTo({ top: document.getElementById('contacto').offsetTop, behavior: 'smooth' });
+  });
+
+  // Cerrar modal con ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Iniciar
+  init();
+</script>
+
 </body>
 </html>
