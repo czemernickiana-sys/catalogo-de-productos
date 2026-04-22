@@ -193,555 +193,533 @@
 <script>window.Intl=window.Intl||{};Intl.t=function(s){return(Intl._locale&&Intl._locale[s])||s;};</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Uñas Pro - Catálogo de Suministros de Belleza</title>
+<title>Catálogo Beauty Nails | Productos para Uñas</title>
+<meta name="description" content="Catálogo de productos para uñas: esmaltes, herramientas, decoración, máquinas UV y más. Born Pretty, Ur Sugar, Organic Nails y todas las marcas.">
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          brand: {
-            pink: '#ec4899',
-            violet: '#8b5cf6',
-            dark: '#2b1b3b',
-            light: '#fdf4ff'
-          }
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#fdf2f8',
+          100: '#fce7f3',
+          200: '#fbcfe8',
+          300: '#f9a8d4',
+          400: '#f472b6',
+          500: '#ec4899',
+          600: '#db2777',
+          700: '#be185d',
+          800: '#9d174d',
+          900: '#831843',
         },
-        fontFamily: {
-          sans: ['Poppins', 'sans-serif']
-        },
-        animation: {
-          'fade-in': 'fadeIn 0.5s ease-in-out',
-          'slide-up': 'slideUp 0.4s ease-out'
-        },
-        keyframes: {
-          fadeIn: {
-            '0%': { opacity: '0' },
-            '100%': { opacity: '1' }
-          },
-          slideUp: {
-            '0%': { transform: 'translateY(20px)', opacity: '0' },
-            '100%': { transform: 'translateY(0)', opacity: '1' }
-          }
+        violet: {
+          50: '#f5f3ff',
+          100: '#ede9fe',
+          200: '#ddd6fe',
+          300: '#c4b5fd',
+          400: '#a78bfa',
+          500: '#8b5cf6',
+          600: '#7c3aed',
+          700: '#6d28d9',
+          800: '#5b21b6',
+          900: '#4c1d95',
         }
+      },
+      fontFamily: {
+        sans: ['Poppins', 'sans-serif']
       }
     }
   }
+}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-  /* Layout masonry con CSS columns para performance en 400+ items */
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Poppins', sans-serif; }
+  
+  /* Masonry grid for 400+ items - pure CSS for performance */
   .masonry {
-    column-count: 1;
-    column-gap: 1.5rem;
+    column-count: 2;
+    column-gap: 1rem;
   }
-  @media (min-width: 640px) { .masonry { column-count: 2; } }
-  @media (min-width: 1024px) { .masonry { column-count: 3; } }
-  @media (min-width: 1280px) { .masonry { column-count: 4; } }
+  @media (min-width: 640px) { .masonry { column-count: 3; } }
+  @media (min-width: 768px) { .masonry { column-count: 4; } }
+  @media (min-width: 1024px) { .masonry { column-count: 5; } }
+  @media (min-width: 1280px) { .masonry { column-count: 6; } }
   
   .masonry-item {
     break-inside: avoid;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
   
-  /* Smooth video transition on hover */
-  .product-media video {
-    transition: opacity 0.4s ease;
-    opacity: 0;
-    pointer-events: none;
+  /* Prevent layout shift with aspect-ratio placeholder */
+  .img-container {
+    background: linear-gradient(135deg, #fdf2f8 0%, #f5f3ff 100%);
+    position: relative;
+    overflow: hidden;
   }
-  .product-media:hover video {
-    opacity: 1;
+  .img-container::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
   }
-  .product-media:hover img {
-    opacity: 0;
+  .img-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   
-  /* Scrollbar personalizado */
-  ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: #f1f1f1; }
-  ::-webkit-scrollbar-thumb { 
-    background: linear-gradient(to bottom, #ec4899, #8b5cf6);
-    border-radius: 10px;
+  /* Modal animation */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
+  @keyframes scaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .modal-open { animation: fadeIn 0.2s ease-out; }
+  .modal-content-open { animation: scaleIn 0.25s ease-out; }
   
-  /* Loader skeleton */
-  .skeleton {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    animation: loading 1.5s infinite;
-  }
-  @keyframes loading {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+  /* Active category link */
+  .category-link.active {
+    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
+    color: white;
   }
 </style>
 </head>
-<body class="bg-gradient-to-br from-brand-light via-white to-purple-50 font-sans text-gray-800">
+<body class="bg-gray-50 text-gray-800">
 
-<!-- 
+  <!-- 
   ============================================
-  COMO AGREGAR PRODUCTOS A productos.json
+  INSTRUCCIONES DE USO Y DEPLOY EN GITHUB PAGES
   ============================================
-  1. Crea un archivo productos.json en la raíz de tu proyecto con esta estructura:
-  [
-    {
-      "id": "BP001",
-      "nombre": "Gel Polish Born Pretty 15ml",
-      "categoria": "Born Pretty",
-      "marca": "Born Pretty",
-      "imagen": "img/bornpretty-gel.jpg",
-      "video": "video/bornpretty-gel.mp4",
-      "descripcion": "Esmalte en gel de alta pigmentación con duración de 21 días",
-      "link": "https://wa.me/521000000000?text=Me%20interesa%20BP001"
-    }
-  ]
   
-  Campos: id, nombre, categoria, marca, imagen, video, descripcion, link
-  El campo "video" es opcional. Si está vacío no se mostrará video al hover.
+  1. ESTRUCTURA DE productos.json:
+     Coloca un archivo productos.json en la raíz del proyecto con este formato:
+     [
+       {
+         "id": "bp-001",
+         "nombre": "Esmalte Gel Born Pretty 15ml",
+         "categoria": "Born Pretty",
+         "marca": "Born Pretty",
+         "imagen": "https://ejemplo.com/imagen.jpg",
+         "video": "https://ejemplo.com/video.mp4", // Opcional. Puede ser mp4 o youtube embed
+         "descripcion": "Esmalte en gel de larga duración...",
+         "link": "https://wa.me/5491112345678" // Link base de WhatsApp opcional
+       },
+       ...
+     ]
   
+  2. CONFIGURAR NÚMERO DE WHATSAPP:
+     Cambia la constante WHATSAPP_NUMBER en el JS línea ~330 con tu número completo con código país sin + ni espacios.
+     Ej: "5491123456789" para Argentina
+  
+  3. DEPLOY EN GITHUB PAGES:
+     a. Crea un repo en GitHub y sube index.html y productos.json
+     b. Ve a Settings > Pages
+     c. Source: Deploy from branch > main > /root
+     d. Guarda. Tu sitio estará en https://usuario.github.io/repo/
+     
+  4. RENDIMIENTO PARA 400+ ITEMS:
+     - Lazy loading nativo en todas las imágenes
+     - Masonry con CSS columns para evitar JS pesado
+     - IntersectionObserver para resaltar categoría activa
+     - Sin librerías pesadas, solo Tailwind CDN
   ============================================
-  COMO DESPLEGAR EN GITHUB PAGES
-  ============================================
-  1. Crea un repositorio en GitHub y sube index.html + productos.json + carpeta /img /video
-  2. Ve a Settings > Pages > Source: Deploy from branch > Branch: main > /root
-  3. Tu sitio estará en: https://tuusuario.github.io/turepo/
-  4. Para rutas relativas: usa "img/" en lugar de "/img/" para que funcione en /turepo/
--->
+  -->
 
-<!-- Header -->
-<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-purple-100 shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-20">
-      <div class="flex items-center gap-3">
-        <div class="w-12 h-12 bg-gradient-to-br from-brand-pink to-brand-violet rounded-xl flex items-center justify-center shadow-lg">
-          <i class="fa-solid fa-hand-sparkles text-white text-xl"></i>
+  <!-- Header -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-pink-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center gap-2">
+          <svg class="w-8 h-8 text-primary-500" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+          <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary-600 to-violet-600 bg-clip-text text-transparent">Beauty Nails Catálogo</h1>
         </div>
-        <div>
-          <h1 class="text-2xl font-bold bg-gradient-to-r from-brand-pink to-brand-violet bg-clip-text text-transparent">Uñas Pro</h1>
-          <p class="text-xs text-gray-500 -mt-1">Catálogo Mayorista</p>
-        </div>
-      <div class="flex items-center gap-4">
-        <a href="#contacto" class="hidden sm:flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-pink to-brand-violet text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all">
-          <i class="fa-brands fa-whatsapp"></i>
-          <span>Contactar</span>
-        </a>
-        <button id="menuBtn" class="lg:hidden p-2 text-gray-600">
-          <i class="fa-solid fa-bars text-xl"></i>
-        </button>
+        <a href="#categorias" class="hidden sm:block text-sm font-medium text-gray-600 hover:text-primary-600 transition">Ver categorías</a>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<!-- Hero -->
-<section class="relative overflow-hidden">
-  <div class="absolute inset-0 bg-gradient-to-r from-brand-pink/10 to-brand-violet/10"></div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24 relative">
-    <div class="text-center max-w-3xl mx-auto animate-slide-up">
-      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-4">
-        Todo para tus <span class="bg-gradient-to-r from-brand-pink to-brand-violet bg-clip-text text-transparent">Uñas Perfectas</span>
-      </h2>
-      <p class="text-lg text-gray-600 mb-8">Explora nuestro catálogo con más de 400 productos de las mejores marcas. Insumos profesionales para nail art, construcción y decoración.</p>
-      <div class="relative max-w-xl mx-auto">
-        <i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
-        <input type="text" id="searchInput" placeholder="Buscar producto, marca o categoría..." class="w-full pl-12 pr-4 py-4 rounded-full border-2 border-purple-100 focus:border-brand-violet focus:ring-4 focus:ring-brand-violet/20 outline-none transition-all shadow-sm">
+  <!-- Hero -->
+  <section class="bg-gradient-to-br from-primary-50 via-white to-violet-50 py-12 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-primary-600 to-violet-600 bg-clip-text text-transparent">Todo para tus Uñas</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">Explora más de 400 productos de las mejores marcas: Born Pretty, Ur Sugar, Organic Nails y más. Calidad profesional al mejor precio.</p>
+      <div class="mt-6 flex items-center justify-center gap-2 text-sm text-gray-500">
+        <svg class="w-5 h-5 text-primary-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+        <span id="total-products">Cargando productos...</span>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Filtros -->
-<section class="sticky top-20 z-40 bg-white/95 backdrop-blur-lg border-y border-purple-100 py-4 shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-between">
-      <div class="w-full lg:w-auto">
-        <p class="text-sm font-semibold text-gray-500 mb-2 flex items-center gap-2">
-          <i class="fa-solid fa-filter text-brand-violet"></i> Filtrar por categoría:
-        </p>
-        <div id="filterBtns" class="flex flex-wrap gap-2"></div>
+  <!-- Category Anchor Menu -->
+  <nav id="categorias" class="sticky top-16 z-30 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide" id="category-nav">
+        <!-- Links se generan dinámicamente -->
       </div>
-      <div class="w-full lg:w-auto">
-        <p class="text-sm font-semibold text-gray-500 mb-2 flex items-center gap-2">
-          <i class="fa-solid fa-tags text-brand-pink"></i> Filtrar por marca:
-        </p>
-        <select id="marcaSelect" class="w-full lg:w-64 px-4 py-2.5 rounded-full border-2 border-purple-100 focus:border-brand-pink focus:ring-4 focus:ring-brand-pink/20 outline-none transition-all bg-white text-sm font-medium">
-          <option value="Todas">Todas las marcas</option>
-        </select>
-      </div>
-    <div id="activeFilters" class="mt-3 flex flex-wrap gap-2"></div>
-  </div>
-</section>
-
-<!-- Contador de resultados -->
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-  <p id="resultsCount" class="text-sm text-gray-600 font-medium"></p>
-</div>
-
-<!-- Grid de productos -->
-<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-  <div id="productGrid" class="masonry"></div>
-  
-  <!-- Loader -->
-  <div id="loader" class="text-center py-12 hidden">
-    <div class="inline-block w-12 h-12 border-4 border-brand-pink/30 border-t-brand-pink rounded-full animate-spin"></div>
-    <p class="mt-4 text-gray-500 font-medium">Cargando más productos...</p>
-  </div>
-  
-  <!-- Sin resultados -->
-  <div id="noResults" class="hidden text-center py-20">
-    <i class="fa-regular fa-face-sad-tear text-6xl text-gray-300 mb-4"></i>
-    <h3 class="text-2xl font-bold text-gray-700 mb-2">No encontramos productos</h3>
-    <p class="text-gray-500">Intenta con otros filtros o términos de búsqueda</p>
-  </div>
-</main>
-
-<!-- Modal Ver más -->
-<div id="productModal" class="fixed inset-0 z-[100] hidden">
-  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
-  <div class="absolute inset-0 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl animate-slide-up" onclick="event.stopPropagation()">
-      <div id="modalContent"></div>
     </div>
-  </div>
-</div>
+  </nav>
 
-<!-- Footer -->
-<footer id="contacto" class="bg-gradient-to-br from-brand-dark to-purple-900 text-white mt-20">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid md:grid-cols-3 gap-8">
-      <div>
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 bg-gradient-to-br from-brand-pink to-brand-violet rounded-lg flex items-center justify-center">
-            <i class="fa-solid fa-hand-sparkles"></i>
+  <!-- Main Catalog -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12" id="catalog-container">
+    <!-- Secciones de categorías se generan dinámicamente -->
+    <div id="loading" class="text-center py-20">
+      <div class="inline-block w-12 h-12 border-4 border-primary-200 border-t-primary-600 rounded-full animate-spin"></div>
+      <p class="mt-4 text-gray-500">Cargando catálogo...</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-primary-600 to-violet-600 text-white mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
+      <p class="font-semibold text-lg mb-2">Beauty Nails Catálogo</p>
+      <p class="text-sm text-white/80">© 2024 Todos los derechos reservados. Productos 100% originales.</p>
+    </div>
+  </footer>
+
+  <!-- Modal / Lightbox -->
+  <div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div id="modal-content" class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
+      <!-- Close button -->
+      <button id="modal-close" class="absolute top-4 right-4 z-10 bg-white/90 hover:bg-white rounded-full p-2 shadow-lg transition hover:scale-110">
+        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+      
+      <div class="overflow-y-auto">
+        <div class="grid md:grid-cols-2 gap-6 p-6 md:p-8">
+          <!-- Media Column -->
+          <div class="space-y-4">
+            <div class="rounded-xl overflow-hidden bg-gray-100">
+              <img id="modal-img" src="" alt="" class="w-full h-auto">
+            </div>
+            <div id="modal-video-container" class="hidden rounded-xl overflow-hidden bg-gray-900 aspect-video">
+              <video id="modal-video" class="w-full h-full" controls></video>
+            </div>
           </div>
-          <h3 class="text-xl font-bold">Uñas Pro</h3>
+          
+          <!-- Info Column -->
+          <div class="flex flex-col">
+            <span id="modal-marca" class="text-xs font-semibold uppercase tracking-wider text-primary-600 mb-2"></span>
+            <h3 id="modal-nombre" class="text-2xl md:text-3xl font-bold text-gray-900 mb-1"></h3>
+            <span id="modal-categoria" class="inline-block text-sm text-violet-700 bg-violet-100 px-3 py-1 rounded-full w-fit mb-4"></span>
+            
+            <div class="prose prose-sm max-w-none text-gray-600 mb-6 flex-grow">
+              <p id="modal-descripcion"></p>
+            </div>
+            
+            <a id="modal-whatsapp" href="#" target="_blank" rel="noopener" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-4 px-6 rounded-xl shadow-lg shadow-green-500/30 transition-all hover:shadow-xl hover:scale-[1.02] flex items-center justify-center gap-2">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              Lo quiero
+            </a>
+          </div>
         </div>
-        <p class="text-purple-200 text-sm">Distribuidores de insumos profesionales para nail art con más de 400 productos en stock.</p>
       </div>
-      <div>
-        <h4 class="font-semibold mb-4">Contacto</h4>
-        <div class="space-y-2 text-sm text-purple-200">
-          <p><i class="fa-brands fa-whatsapp mr-2"></i> +52 1 000 000 0000</p>
-          <p><i class="fa-solid fa-envelope mr-2"></i> ventas@unaspro.com</p>
-          <p><i class="fa-solid fa-location-dot mr-2"></i> CDMX, México</p>
-        </div>
-      </div>
-      <div>
-        <h4 class="font-semibold mb-4">Horarios</h4>
-        <p class="text-sm text-purple-200">Lunes a Sábado<br>9:00 AM - 7:00 PM</p>
-      </div>
-    <div class="border-t border-purple-800 mt-8 pt-6 text-center text-sm text-purple-300">
-      <p>&copy; 2024 Uñas Pro. Todos los derechos reservados.</p>
     </div>
   </div>
-</footer>
 
 <script>
-  // Estado global de la app
-  const state = {
-    productos: [],
-    productosFiltrados: [],
-    categoriaActual: 'Todas',
-    marcaActual: 'Todas',
-    busqueda: '',
-    pagina: 0,
-    porPagina: 20,
-    cargando: false,
-    categorias: [
-      'Born Pretty', 'Ur Sugar', 'Rosalind', 'Organic Nails', 'Full Beauty',
-      'Productos de construccion', 'Herramientas', 'Pinceles', 'Pulidoras',
-      'Decoracion', 'Maquina uv', 'Prod. de esmaltado', 'Super ofertas!!!',
-      'Tips', 'Pulidoras para terminacion', 'Piedras', 'Giltters', 'Pigmentos', 'Stikers'
-    ]
-  };
+// ============================================
+// CONFIGURACIÓN
+// ============================================
+const WHATSAPP_NUMBER = "5491123456789"; // CAMBIAR: Tu número con código de país sin + ni espacios
+const JSON_URL = "./productos.json"; // Ruta al archivo JSON
 
-  // Elementos del DOM
-  const productGrid = document.getElementById('productGrid');
-  const loader = document.getElementById('loader');
-  const noResults = document.getElementById('noResults');
-  const resultsCount = document.getElementById('resultsCount');
-  const searchInput = document.getElementById('searchInput');
-  const filterBtns = document.getElementById('filterBtns');
-  const marcaSelect = document.getElementById('marcaSelect');
-  const activeFilters = document.getElementById('activeFilters');
-  const productModal = document.getElementById('productModal');
-  const modalContent = document.getElementById('modalContent');
+// Categorías permitidas en el orden especificado
+const CATEGORIES = [
+  "Born Pretty",
+  "Ur Sugar", 
+  "Rosalind",
+  "Organic Nails",
+  "Full Beauty",
+  "Productos de construccion",
+  "Herramientas",
+  "Pinceles",
+  "Pulidoras",
+  "Decoracion",
+  "Maquina uv",
+  "Prod. de esmaltado",
+  "Super ofertas!!!",
+  "Tips",
+  "Pulidoras para terminacion",
+  "Piedras",
+  "Giltters",
+  "Pigmentos",
+  "Stikers"
+];
 
-  // 1. Inicializar app
-  async function init() {
-    try {
-      const res = await fetch('productos.json');
-      if (!res.ok) throw new Error('No se encontró productos.json');
-      state.productos = await res.json();
-      state.productosFiltrados = [...state.productos];
-      
-      renderFiltrosCategorias();
-      renderFiltrosMarcas();
-      renderProductos(true);
-      setupInfiniteScroll();
-      setupBusqueda();
-    } catch (err) {
-      console.error('Error cargando productos:', err);
-      productGrid.innerHTML = `
-        <div class="col-span-full text-center py-20">
-          <i class="fa-solid fa-triangle-exclamation text-5xl text-red-400 mb-4"></i>
-          <h3 class="text-xl font-bold text-gray-700 mb-2">Error al cargar productos</h3>
-          <p class="text-gray-500">Verifica que productos.json exista en la raíz del proyecto</p>
-        </div>
-      `;
+// Estado global
+let allProducts = [];
+let productsByCategory = {};
+
+// ============================================
+// UTILIDADES
+// ============================================
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+
+function slugify(text) {
+  return text.toString().toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^\w\-]+/g, '-')
+    .replace(/\-\-+/g, '-')
+    .replace(/^-+/, '')
+    .replace(/-+$/, '');
+}
+
+function isVideoUrl(url) {
+  return /\.(mp4|webm|ogg)$/i.test(url) || url.includes('youtube.com') || url.includes('youtu.be');
+}
+
+function getYouTubeEmbed(url) {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  return match && match[2].length === 11 ? `https://www.youtube.com/embed/${match[2]}` : null;
+}
+
+// ============================================
+// RENDERIZADO
+// ============================================
+function renderCategoryNav() {
+  const nav = $('#category-nav');
+  const fragment = document.createDocumentFragment();
+  
+  CATEGORIES.forEach(cat => {
+    if (productsByCategory[cat]?.length > 0) {
+      const link = document.createElement('a');
+      link.href = `#${slugify(cat)}`;
+      link.className = 'category-link whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-gray-700 bg-gray-100 hover:bg-primary-100 hover:text-primary-700 transition';
+      link.textContent = cat;
+      link.dataset.category = cat;
+      fragment.appendChild(link);
     }
-  }
+  });
+  
+  nav.appendChild(fragment);
+}
 
-  // 2. Renderizar botones de categoría
-  function renderFiltrosCategorias() {
-    const btns = ['Todas', ...state.categorias].map(cat => `
-      <button data-categoria="${cat}" class="filter-cat-btn px-4 py-2 rounded-full text-sm font-medium transition-all ${state.categoriaActual === cat ? 'bg-gradient-to-r from-brand-pink to-brand-violet text-white shadow-lg' : 'bg-white border-2 border-purple-100 text-gray-700 hover:border-brand-violet hover:bg-purple-50'}">
-        ${cat}
-      </button>
-    `).join('');
-    filterBtns.innerHTML = btns;
-    
-    document.querySelectorAll('.filter-cat-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        state.categoriaActual = btn.dataset.categoria;
-        aplicarFiltros();
-        renderFiltrosCategorias();
-      });
-    });
-  }
-
-  // 3. Renderizar select de marcas únicas
-  function renderFiltrosMarcas() {
-    const marcas = [...new Set(state.productos.map(p => p.marca))].sort();
-    marcaSelect.innerHTML = '<option value="Todas">Todas las marcas</option>' + 
-      marcas.map(m => `<option value="${m}">${m}</option>`).join('');
-    
-    marcaSelect.addEventListener('change', (e) => {
-      state.marcaActual = e.target.value;
-      aplicarFiltros();
-    });
-  }
-
-  // 4. Aplicar filtros y búsqueda
-  function aplicarFiltros() {
-    let filtrados = [...state.productos];
-    
-    if (state.categoriaActual !== 'Todas') {
-      filtrados = filtrados.filter(p => p.categoria === state.categoriaActual);
-    }
-    
-    if (state.marcaActual !== 'Todas') {
-      filtrados = filtrados.filter(p => p.marca === state.marcaActual);
-    }
-    
-    if (state.busqueda) {
-      const q = state.busqueda.toLowerCase();
-      filtrados = filtrados.filter(p => 
-        p.nombre.toLowerCase().includes(q) ||
-        p.descripcion.toLowerCase().includes(q) ||
-        p.marca.toLowerCase().includes(q) ||
-        p.categoria.toLowerCase().includes(q)
-      );
-    }
-    
-    state.productosFiltrados = filtrados;
-    state.pagina = 0;
-    renderProductos(true);
-    renderActiveFilters();
-    updateResultsCount();
-  }
-
-  // 5. Renderizar productos con paginación
-  function renderProductos(reset = false) {
-    if (reset) productGrid.innerHTML = '';
-    
-    const inicio = state.pagina * state.porPagina;
-    const fin = inicio + state.porPagina;
-    const productosPagina = state.productosFiltrados.slice(inicio, fin);
-    
-    if (productosPagina.length === 0 && reset) {
-      noResults.classList.remove('hidden');
-      resultsCount.textContent = '';
-      return;
-    }
-    
-    noResults.classList.add('hidden');
-    
-    const html = productosPagina.map(p => `
-      <div class="masonry-item animate-fade-in">
-        <div class="bg-white rounded-2xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group">
-          <div class="product-media relative aspect-[3/4] bg-gray-100 overflow-hidden">
-            <img src="${p.imagen}" alt="${p.nombre}" loading="lazy" class="w-full h-full object-cover transition-opacity duration-400">
-            ${p.video ? `<video src="${p.video}" muted loop playsinline class="absolute inset-0 w-full h-full object-cover"></video>` : ''}
-            <div class="absolute top-3 left-3 bg-gradient-to-r from-brand-pink to-brand-violet text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
-              ${p.marca}
-            </div>
-          <div class="p-5">
-            <span class="text-xs font-semibold text-brand-violet uppercase tracking-wide">${p.categoria}</span>
-            <h3 class="font-bold text-gray-800 mt-1 mb-2 line-clamp-2 min-h-[3rem]">${p.nombre}</h3>
-            <p class="text-sm text-gray-600 line-clamp-2 mb-4">${p.descripcion}</p>
-            <div class="flex gap-2">
-              <button onclick='verMas(${JSON.stringify(p).replace(/'/g, "&apos;")})' class="flex-1 bg-gradient-to-r from-brand-pink to-brand-violet text-white font-semibold py-2.5 px-4 rounded-xl hover:shadow-lg hover:scale-105 transition-all text-sm">
-                Ver más
-              </button>
-              ${p.link ? `<a href="${p.link}" target="_blank" class="bg-green-500 hover:bg-green-600 text-white p-2.5 rounded-xl transition-all hover:scale-105"><i class="fa-brands fa-whatsapp"></i></a>` : ''}
-            </div>
-          </div>
-        </div>
+function createProductCard(product) {
+  const card = document.createElement('div');
+  card.className = 'masonry-item cursor-pointer group';
+  card.innerHTML = `
+    <div class="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden hover:-translate-y-1">
+      <div class="img-container">
+        <img 
+          loading="lazy" 
+          decoding="async"
+          src="${product.imagen}" 
+          alt="${product.nombre}"
+          class="transition-transform duration-500 group-hover:scale-110"
+          onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'400\' height=\'400\' viewBox=\'0 0 400 400\'%3E%3Crect fill=\'%23fdf2f8\' width=\'400\' height=\'400\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' font-size=\'16\' fill=\'%23ec4899\'%3ESin imagen%3C/text%3E%3C/svg%3E'"
+        >
       </div>
-    `).join('');
-    
-    productGrid.insertAdjacentHTML('beforeend', html);
-    
-    // Activar videos al hover solo en desktop
-    if (window.matchMedia('(hover: hover)').matches) {
-      document.querySelectorAll('.product-media video').forEach(vid => {
-        const parent = vid.parentElement;
-        parent.addEventListener('mouseenter', () => vid.play().catch(() => {}));
-        parent.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
-      });
-    }
-    
-    updateResultsCount();
-  }
+      <div class="p-3">
+        <h3 class="text-sm font-medium text-gray-800 line-clamp-2 leading-tight">${product.nombre}</h3>
+      </div>
+    </div>
+  `;
+  
+  card.addEventListener('click', () => openModal(product));
+  return card;
+}
 
-  // 6. Infinite scroll optimizado para 400+ items
-  function setupInfiniteScroll() {
-    const observer = new IntersectionObserver(async (entries) => {
-      if (entries[0].isIntersecting && !state.cargando) {
-        const totalMostrados = (state.pagina + 1) * state.porPagina;
-        if (totalMostrados < state.productosFiltrados.length) {
-          state.cargando = true;
-          loader.classList.remove('hidden');
-          
-          // Simular carga para UX
-          await new Promise(r => setTimeout(r, 300));
-          
-          state.pagina++;
-          renderProductos(false);
-          
-          loader.classList.add('hidden');
-          state.cargando = false;
-        }
+function renderCatalog() {
+  const container = $('#catalog-container');
+  const loading = $('#loading');
+  loading.remove();
+  
+  const fragment = document.createDocumentFragment();
+  
+  CATEGORIES.forEach(cat => {
+    const products = productsByCategory[cat];
+    if (!products || products.length === 0) return;
+    
+    const section = document.createElement('section');
+    section.id = slugify(cat);
+    section.className = 'mb-16 scroll-mt-32';
+    
+    const header = document.createElement('div');
+    header.className = 'flex items-center justify-between mb-6';
+    header.innerHTML = `
+      <h2 class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary-600 to-violet-600 bg-clip-text text-transparent">${cat}</h2>
+      <span class="text-sm text-gray-500 font-medium">${products.length} productos</span>
+    `;
+    
+    const grid = document.createElement('div');
+    grid.className = 'masonry';
+    
+    const itemsFragment = document.createDocumentFragment();
+    products.forEach(p => itemsFragment.appendChild(createProductCard(p)));
+    grid.appendChild(itemsFragment);
+    
+    section.appendChild(header);
+    section.appendChild(grid);
+    fragment.appendChild(section);
+  });
+  
+  container.appendChild(fragment);
+  $('#total-products').textContent = `${allProducts.length} productos disponibles`;
+}
+
+// ============================================
+// MODAL
+// ============================================
+function openModal(product) {
+  const modal = $('#modal');
+  const modalContent = $('#modal-content');
+  
+  $('#modal-img').src = product.imagen;
+  $('#modal-img').alt = product.nombre;
+  $('#modal-nombre').textContent = product.nombre;
+  $('#modal-marca').textContent = product.marca || '';
+  $('#modal-categoria').textContent = product.categoria;
+  $('#modal-descripcion').textContent = product.descripcion || 'Sin descripción disponible.';
+  
+  // Video handling
+  const videoContainer = $('#modal-video-container');
+  const videoEl = $('#modal-video');
+  
+  if (product.video) {
+    videoContainer.classList.remove('hidden');
+    if (isVideoUrl(product.video)) {
+      const ytEmbed = getYouTubeEmbed(product.video);
+      if (ytEmbed) {
+        videoContainer.innerHTML = `<iframe src="${ytEmbed}" class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+      } else {
+        videoContainer.innerHTML = `<video src="${product.video}" class="w-full h-full" controls></video>`;
       }
-    }, { rootMargin: '400px' });
-    
-    observer.observe(loader);
+    }
+  } else {
+    videoContainer.classList.add('hidden');
+    videoContainer.innerHTML = '';
   }
+  
+  // WhatsApp link
+  const message = encodeURIComponent(`Hola! Me interesa el producto: ${product.nombre} (ID: ${product.id})`);
+  const waLink = product.link || `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`;
+  $('#modal-whatsapp').href = waLink;
+  
+  modal.classList.remove('hidden');
+  modal.classList.add('flex', 'modal-open');
+  modalContent.classList.add('modal-content-open');
+  document.body.style.overflow = 'hidden';
+}
 
-  // 7. Búsqueda con debounce
-  function setupBusqueda() {
-    let timeout;
-    searchInput.addEventListener('input', (e) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        state.busqueda = e.target.value.trim();
-        aplicarFiltros();
-      }, 300);
+function closeModal() {
+  const modal = $('#modal');
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+  document.body.style.overflow = '';
+  
+  // Stop video if playing
+  $('#modal-video-container').innerHTML = '';
+}
+
+// ============================================
+// INTERSECTION OBSERVER - Active category highlight
+// ============================================
+function initScrollSpy() {
+  const sections = $$('main section[id]');
+  const navLinks = $$('.category-link');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+        });
+      }
     });
-  }
+  }, {
+    rootMargin: '-100px 0px -70% 0px',
+    threshold: 0
+  });
+  
+  sections.forEach(section => observer.observe(section));
+}
 
-  // 8. Modal Ver más
-  function verMas(producto) {
-    modalContent.innerHTML = `
-      <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 bg-white/90 backdrop-blur rounded-full flex items-center justify-center text-gray-600 hover:bg-gray-100 transition-all z-10">
-        <i class="fa-solid fa-xmark text-xl"></i>
-      </button>
-      <div class="grid md:grid-cols-2 gap-0">
-        <div class="bg-gray-100 relative aspect-square md:aspect-auto">
-          ${producto.video ? 
-            `<video src="${producto.video}" controls autoplay loop class="w-full h-full object-cover"></video>` :
-            `<img src="${producto.imagen}" alt="${producto.nombre}" class="w-full h-full object-cover">`
-          }
-        </div>
-        <div class="p-6 sm:p-8 flex flex-col">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="bg-gradient-to-r from-brand-pink to-brand-violet text-white text-xs font-semibold px-3 py-1 rounded-full">${producto.marca}</span>
-            <span class="text-xs font-semibold text-brand-violet uppercase">${producto.categoria}</span>
-          </div>
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">${producto.nombre}</h2>
-          <div class="flex-1">
-            <h3 class="font-semibold text-gray-700 mb-2">Descripción:</h3>
-            <p class="text-gray-600 leading-relaxed">${producto.descripcion}</p>
-            <div class="mt-6 p-4 bg-purple-50 rounded-xl border border-purple-100">
-              <p class="text-sm text-gray-700"><i class="fa-solid fa-circle-info text-brand-violet mr-2"></i>ID del producto: <span class="font-semibold">${producto.id}</span></p>
-            </div>
-          ${producto.link ? `
-          <a href="${producto.link}" target="_blank" class="mt-6 w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 transition-all">
-            <i class="fa-brands fa-whatsapp text-xl"></i>
-            Consultar por WhatsApp
-          </a>` : ''}
-        </div>
+// ============================================
+// CARGA DE DATOS
+// ============================================
+async function loadProducts() {
+  try {
+    const res = await fetch(JSON_URL);
+    if (!res.ok) throw new Error('No se pudo cargar productos.json');
+    
+    allProducts = await res.json();
+    
+    // Agrupar por categoría
+    productsByCategory = {};
+    CATEGORIES.forEach(cat => productsByCategory[cat] = []);
+    
+    allProducts.forEach(p => {
+      if (productsByCategory.hasOwnProperty(p.categoria)) {
+        productsByCategory[p.categoria].push(p);
+      } else {
+        // Categoría no listada - agregar a "Otros" o ignorar
+        console.warn(`Producto con categoría no listada: ${p.categoria}`, p);
+      }
+    });
+    
+    // Filtrar categorías vacías
+    CATEGORIES.forEach(cat => {
+      if (productsByCategory[cat].length === 0) {
+        delete productsByCategory[cat];
+      }
+    });
+    
+    renderCategoryNav();
+    renderCatalog();
+    initScrollSpy();
+    
+  } catch (err) {
+    console.error('Error:', err);
+    $('#loading').innerHTML = `
+      <div class="text-center py-20">
+        <svg class="w-16 h-16 mx-auto text-red-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <p class="text-red-600 font-semibold">Error al cargar el catálogo</p>
+        <p class="text-gray-500 text-sm mt-2">Verifica que productos.json exista en la raíz del proyecto.</p>
       </div>
     `;
-    productModal.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
   }
+}
 
-  function closeModal() {
-    productModal.classList.add('hidden');
-    document.body.style.overflow = '';
+// ============================================
+// EVENT LISTENERS
+// ============================================
+$('#modal-close').addEventListener('click', closeModal);
+$('#modal').addEventListener('click', (e) => {
+  if (e.target.id === 'modal') closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !$('#modal').classList.contains('hidden')) {
+    closeModal();
   }
+});
 
-  // 9. Filtros activos
-  function renderActiveFilters() {
-    const filters = [];
-    if (state.categoriaActual !== 'Todas') {
-      filters.push(`<span class="inline-flex items-center gap-2 bg-brand-violet/10 text-brand-violet px-3 py-1 rounded-full text-xs font-medium">
-        ${state.categoriaActual} <button onclick="clearCategoria()"><i class="fa-solid fa-xmark"></i></button>
-      </span>`);
-    }
-    if (state.marcaActual !== 'Todas') {
-      filters.push(`<span class="inline-flex items-center gap-2 bg-brand-pink/10 text-brand-pink px-3 py-1 rounded-full text-xs font-medium">
-        ${state.marcaActual} <button onclick="clearMarca()"><i class="fa-solid fa-xmark"></i></button>
-      </span>`);
-    }
-    if (state.busqueda) {
-      filters.push(`<span class="inline-flex items-center gap-2 bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">
-        "${state.busqueda}" <button onclick="clearBusqueda()"><i class="fa-solid fa-xmark"></i></button>
-      </span>`);
-    }
-    activeFilters.innerHTML = filters.join('');
-  }
+// ============================================
+// INIT
+// ============================================
+document.addEventListener('DOMContentLoaded', loadProducts);
 
-  function clearCategoria() {
-    state.categoriaActual = 'Todas';
-    renderFiltrosCategorias();
-    aplicarFiltros();
-  }
-  function clearMarca() {
-    state.marcaActual = 'Todas';
-    marcaSelect.value = 'Todas';
-    aplicarFiltros();
-  }
-  function clearBusqueda() {
-    state.busqueda = '';
-    searchInput.value = '';
-    aplicarFiltros();
-  }
-
-  function updateResultsCount() {
-    const total = state.productosFiltrados.length;
-    const mostrando = Math.min((state.pagina + 1) * state.porPagina, total);
-    resultsCount.textContent = total > 0 ? `Mostrando ${mostrando} de ${total} productos` : '';
-  }
-
-  // Menú móvil
-  document.getElementById('menuBtn').addEventListener('click', () => {
-    window.scrollTo({ top: document.getElementById('contacto').offsetTop, behavior: 'smooth' });
-  });
-
-  // Cerrar modal con ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeModal();
-  });
-
-  // Iniciar
-  init();
+// Hide scrollbar for category nav but keep scroll functionality
+const style = document.createElement('style');
+style.textContent = `.scrollbar-hide::-webkit-scrollbar { display: none; } .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }`;
+document.head.appendChild(style);
 </script>
 
 </body>
