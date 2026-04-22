@@ -12,7 +12,6 @@
             color: #831843;
         }
 
-        /* HEADER */
      .header {
             position: sticky;
             top: 0;
@@ -29,7 +28,6 @@
             letter-spacing: -1px;
         }
 
-        /* PESTAÑAS */
      .tabs-wrapper {
             overflow-x: auto;
             border-bottom: 2px solid #fce7f3;
@@ -54,7 +52,6 @@
             border-bottom-color: #ec4899;
         }
 
-        /* CONTADOR */
      .contador {
             padding: 12px 20px;
             background: #fdf2f8;
@@ -64,7 +61,6 @@
             text-align: center;
         }
 
-        /* GRILLA - 4 COLUMNAS FIJAS */
      .galeria {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -107,7 +103,6 @@
             min-height: 34px;
         }
 
-        /* CARGANDO */
      .cargando {
             grid-column: 1 / -1;
             text-align: center;
@@ -116,7 +111,6 @@
             font-size: 16px;
         }
 
-        /* LIGHTBOX - Cuando tocás la foto */
      .lightbox {
             display: none;
             position: fixed;
@@ -216,13 +210,11 @@
     </div>
 
     <script>
-        // Tu planilla publicada
-        const SHEET_ID = '2PACX-1vT1D4z2yxDAZ6iS3U9iOSwtu-iQaGMUhAFWT_bA9cyzPTAV8yB4l1_iMRsEv13Sybc5Jly8v3XnZiwL';
-const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1D4z2yxDAZ6iS3U9iOSwtu-iQaGMUhAFWT_bA9cyzPTAV8yB4l1_iMRsEv13Sybc5Jly8v3XnZiwL/pub?output=csv';
+        const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1D4z2yxDAZ6iS3U9iOSwtu-iQaGMUhAFWT_bA9cyzPTAV8yB4l1_iMRsEv13Sybc5Jly8v3XnZiwL/pub?output=csv';
+
         let todosProductos = [];
         let categoriaActiva = 'todos';
 
-        // Convierte links de Google Drive a imagen
         function convertirDrive(link) {
             if (!link) return '';
             const match = link.match(/[-\w]{25,}/);
@@ -232,47 +224,43 @@ const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1D4z2yxDAZ6
             return link;
         }
 
-        // Carga los productos desde tu Excel
-      async function cargarProductos() {
-    try {
-        const response = await fetch(SHEET_URL);
-        const csv = await response.text();
-        const filas = csv.split('\n');
-        
-        // Salteo la fila 1 que tiene los títulos
-        todosProductos = filas.slice(1).map((fila, i) => {
-            // Esto separa por comas pero respeta comas dentro de comillas
-            const c = fila.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
-            const limpiar = (txt) => txt ? txt.replace(/^"|"$/g, '').trim() : '';
-            
-            return {
-                id: i,
-                img: convertirDrive(limpiar(c[1])), // Columna B
-                nombre: limpiar(c[2]), // Columna C
-                descripcion: limpiar(c[7]), // Columna H
-                categoria: limpiar(c[10]) || 'Sin categoría' // Columna K
-            };
-        }).filter(p => p.nombre && p.img);
+        async function cargarProductos() {
+            try {
+                const response = await fetch(SHEET_URL);
+                const csv = await response.text();
+                const filas = csv.split('\n');
+                
+                todosProductos = filas.slice(1).map((fila, i) => {
+                    const c = fila.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g) || [];
+                    const limpiar = (txt) => txt ? txt.replace(/^"|"$/g, '').trim() : '';
+                    
+                    return {
+                        id: i,
+                        img: convertirDrive(limpiar(c[1])),
+                        nombre: limpiar(c[2]),
+                        descripcion: limpiar(c[7]),
+                        categoria: limpiar(c[10]) || 'Sin categoría'
+                    };
+                }).filter(p => p.nombre && p.img);
 
-        if(todosProductos.length === 0) {
-            throw new Error('No se encontraron productos');
+                if(todosProductos.length === 0) {
+                    throw new Error('No se encontraron productos con nombre y foto');
+                }
+
+                generarTabs();
+                renderizar();
+            } catch (error) {
+                document.getElementById('galeria').innerHTML = `
+                    <div class="cargando">Error al cargar: ${error.message}</div>
+                `;
+                console.error(error);
+            }
         }
 
-        generarTabs();
-        renderizar();
-    } catch (error) {
-        document.getElementById('galeria').innerHTML = `
-            <div class="cargando">Error al cargar: ${error.message}</div>
-        `;
-        console.error(error);
-    }
-}
-
-        // Crea las pestañas según las categorías de tu Excel
         function generarTabs() {
             const tabsDiv = document.getElementById('tabs');
             const categorias = [...new Set(todosProductos.map(p => p.categoria))];
-
+            
             categorias.sort().forEach(cat => {
                 const btn = document.createElement('button');
                 btn.className = 'tab-btn';
@@ -285,7 +273,6 @@ const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1D4z2yxDAZ6
             document.querySelector('[data-categoria="todos"]').onclick = () => cambiarCategoria('todos');
         }
 
-        // Cambia de pestaña
         function cambiarCategoria(cat) {
             categoriaActiva = cat;
             document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -295,15 +282,14 @@ const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1D4z2yxDAZ6
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Muestra los productos
         function renderizar() {
             const galeria = document.getElementById('galeria');
-            const productos = categoriaActiva === 'todos'
-               ? todosProductos
+            const productos = categoriaActiva === 'todos' 
+                ? todosProductos 
                 : todosProductos.filter(p => p.categoria === categoriaActiva);
-
-            document.getElementById('contador').textContent =
-                `${productos.length} productos${categoriaActiva!== 'todos'? ' en ' + categoriaActiva : ''}`;
+            
+            document.getElementById('contador').textContent = 
+                `${productos.length} productos${categoriaActiva !== 'todos' ? ' en ' + categoriaActiva : ''}`;
 
             if (productos.length === 0) {
                 galeria.innerHTML = `<div class="cargando">No hay productos en esta categoría</div>`;
@@ -327,7 +313,6 @@ const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1D4z2yxDAZ6
             });
         }
 
-        // Abre la foto grande
         function abrirLightbox(p) {
             document.getElementById('lightbox-img').src = p.img.replace('w400', 'w1200');
             document.getElementById('lightbox-nombre').textContent = p.nombre;
@@ -336,7 +321,6 @@ const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1D4z2yxDAZ6
             document.body.style.overflow = 'hidden';
         }
 
-        // Cierra la foto
         function cerrarLightbox(e) {
             if (!e || e.target.id === 'lightbox') {
                 document.getElementById('lightbox').classList.remove('activo');
@@ -348,7 +332,6 @@ const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT1D4z2yxDAZ6
             if (e.key === 'Escape') cerrarLightbox();
         });
 
-        // Arranca todo
         cargarProductos();
     </script>
 </body>
