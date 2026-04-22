@@ -1,38 +1,789 @@
-[
-  {
-    "id": 1776809327671,
-    "nombre": "pigmento",
-    "descripcion": "1",
-    "url": "https://drive.google.com/thumbnail?id=1b6boa5DyW5RKEsb6CoXnNhK25sLB7Tle&sz=w1000"
-  },
-  {
-    "id": 1776809424764,
-    "nombre": "pigmento 2",
-    "descripcion": "1",
-    "url": "https://drive.google.com/thumbnail?id=1b2jpKHaveG1ex8O-Ouuw0tTSMOcfBo5-&sz=w1000"
-  },
-  {
-    "id": 1776809457251,
-    "nombre": "pigmento",
-    "descripcion": "3",
-    "url": "https://drive.google.com/thumbnail?id=184t516C7bUI5iL9TpZS3GSbBXAk8SX9w&sz=w1000"
-  },
-  {
-    "id": 1776809482658,
-    "nombre": "4",
-    "descripcion": "",
-    "url": "https://drive.google.com/thumbnail?id=1Qi7OBcNdO82DfG3qEYn_AcR-7AokBZfu&sz=w1000"
-  },
-  {
-    "id": 1776809504739,
-    "nombre": "pigmentos",
-    "descripcion": "",
-    "url": "https://drive.google.com/thumbnail?id=1H58GLU8VgLw1V9TWVqoC84ijMw89G8-E&sz=w1000"
-  },
-  {
-    "id": 1776809617896,
-    "nombre": "pigmento",
-    "descripcion": "",
-    "url": "https://drive.google.com/thumbnail?id=1Bm6Ud-j4Gy1dDWkDHD1wUaJfb6bvf_qz&sz=w1000"
-  }
-]
+{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}
+{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}
+{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}
+{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}
+{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}
+{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}{
+  "id": 4,
+  "nombre": "Gel Polish Rosalind #023",
+  "categoria": "Prod. de esmaltado",
+  "marca": "Rosalind",
+  "imagen": "https://drive.google.com/uc?id=ID_DE_TU_FOTO",
+  "video": "https://drive.google.com/uc?id=ID_DE_TU_VIDEO",
+  "descripcion": "Color rojo intenso, 7ml, curado UV/LED",
+  "link": "https://wa.me/591TU_NUMERO?text=Me interesa Gel Polish Rosalind"
+}
